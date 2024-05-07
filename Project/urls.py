@@ -20,6 +20,7 @@ from django.urls import path
 from app_analysis.views import home, upload, file_detail, deletefile, updatefile, analysis
 
 urlpatterns = [
+    path('',home, name="home"),
     path('admin/', admin.site.urls),
     path('home/' ,home, name="home"),
     path("upload/", upload, name="upload"),
