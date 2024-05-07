@@ -1,0 +1,12 @@
+{% extends "app_analysis/base.html" %}
+{% block content %}
+
+
+<h1 class="title">{{file.name}}</h1>
+<small>Uploaded at {{file.date}}</small>
+<br>
+<small>{{file.file_field.read.decode|slice:":500"}}</small>  <!-- chatgpt -->
+<hr />
+
+
+{% endblock %}

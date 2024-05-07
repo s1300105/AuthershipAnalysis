@@ -1,0 +1,20 @@
+{% extends "app_analysis/base.html" %}
+{% block content %}
+<a href="{% url 'upload' %}">upload file</a>
+<br>
+<a href="{% url 'analysis' %}">Analysis</a>
+{% for file in files %}
+<hr />
+<div class="post block">
+    <h2 class="subtitle">{{file.name}}</h2>
+    <small>Uploaded at {{file.date}}</small>
+    <br>
+    <a href="{% url 'file_detail' file.id %}">detail</a>
+    <br>
+    <a href="{% url 'updatefile' file.id%}">Update</a>
+    <br>
+    <a href="{% url 'delete-file' file.id%}">Delete</a>
+    <hr />
+</div>
+{% endfor %}
+{% endblock %}
