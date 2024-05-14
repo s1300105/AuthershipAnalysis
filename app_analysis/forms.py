@@ -13,7 +13,7 @@ class UploadFileForm(ModelForm):
 class SelectedFileForm(ModelForm):
     class Meta:
         model = SelectedFile
-        fields = ['files']
+        fields = ['files', 'keyword']
         widgets = {
             "files" : CheckboxSelectMultiple,
         }
