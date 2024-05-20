@@ -2,19 +2,24 @@
 {% block content %}
 
     <ul>
-        <strong>KeyWord is "{{keyword}}"</strong>
+        <strong>KeyWord is "{{ keyword }}"</strong>
         <br>
         <hr>
-        {% for file in file_list %}
-          
-                <strong>{{file.file_name}}</strong>
+        {% for file_name, sentences in partOfsentence.items %}
+            <li><strong>{{ file_name }}</strong></li>
+            <br>
+            {% for sentence in sentences %}
+                {% for word in sentence %}
+                    {% if word == keyword %}
+                        <strong><span style="color: red;">{{ word }}</span></strong>
+                    {% else %}
+                        {{ word }}
+                    {% endif %}
+                {% endfor %}
                 <br>
-                <small>{{file.sentence}}</small>
-                <br>
-                <hr>
-           
+            {% endfor %}
+            <hr>
         {% endfor %}
-  </ul>
-
+    </ul>
 
 {% endblock %}
