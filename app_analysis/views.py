@@ -55,21 +55,15 @@ def keyword(request):
         form = SelectedFileForm(request.POST, request.FILES);
         
         if form.is_valid():
-            file_list = []
+            
             files, keyword = getSelectedfileAndKeyword(form)
-            results = searchWord(files, keyword)
-            for file_name in results:
-                with open(file_name) as f:
-                    file_list.append({
-                        'file_name':file_name,
-                        'sentence':f.read()
-                    })
-                    #sentence_list[file_name] = f.read()
-                    
+            filenames, partOfsentence = searchWord(files, keyword)
+      
             context = {
                 #'results':results,
                 'keyword':keyword,
-                'file_list':file_list,
+                'filenames':filenames,
+                'partOfsentence':partOfsentence
                 #'keysentence':sentence
             }
             return render(request, "app_analysis/keyword_analysis.html", context)
@@ -97,24 +91,36 @@ def getSelectedfileAndKeyword(form):
 
 
 def searchWord(files, keyword):
-    results = []
+    partOfsentence = {}
+    filenames = []
     dir = "Texts/KeywordSentences/"
     for file in files:
         with open(file.path) as f:
             text = f.read()
         file_name = os.path.basename(file.name)
         file_name = "Texts/Keyworded/"+keyword+"_"+file_name
-        results.append(file_name)
+        partOfsentence[file_name] = []
+        filenames.append(file_name)
         with open(file_name, mode='a') as g:
             with open(file_name, mode='r') as h:
                 text_check = h.read()
                 sentences = text.split('.')
                 for sentence in sentences:
+                    words = sentence.split()
+                    if keyword in words:
+                        keywordindex = words.index(keyword)
+                        start_index = max(0, keywordindex - 5)
+                        end_index = min(len(words), keywordindex + 6)
+                        word10 = words[start_index:end_index]
+                    if word10 not in partOfsentence[file_name]:
+                        partOfsentence[file_name].append(word10)
                     if keyword in sentence and sentence not in text_check:
-                        sentence += '.\n'
                         g.write(sentence)
     
-    return results
+    return filenames, partOfsentence
+
+                     
+
                         
                     
 
