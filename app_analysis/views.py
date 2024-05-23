@@ -91,8 +91,13 @@ def getSelectedfileAndKeyword(form):
 
 
 def searchWord(files, keyword):
+<<<<<<< HEAD
     partOfsentence = {}
     filenames = []
+=======
+    results = []
+    
+>>>>>>> ecb1c54 (tougou)
     dir = "Texts/KeywordSentences/"
     for file in files:
         with open(file.path) as f:
@@ -115,7 +120,11 @@ def searchWord(files, keyword):
                     if word10 not in partOfsentence[file_name]:
                         partOfsentence[file_name].append(word10)
                     if keyword in sentence and sentence not in text_check:
+<<<<<<< HEAD
                         g.write(sentence)
+=======
+                        g.write(sentence+ '.\n')
+>>>>>>> ecb1c54 (tougou)
     
     return filenames, partOfsentence
 
