@@ -1,0 +1,25 @@
+Title
+BICM-ID for Relay System Allowing Intra-link
+Errors and a Similarity Constellation to ARQ
+Schemes
+
+Issue Date 2012-03
+
+Abstract| In this paper, we propose an accumulator-assisted (ACC) relay system with bit-
+interleaved coded modulation using iterative decoding (BICM-ID) technique and apply the net-
+work topology to an Automatic Repeat Request (ARQ) scheme The theoretical back-
+ground of this technique is the Slepian-Wolf/Shannon theorem for correlated source coding In this paper,
+it is also shown that if the intra-link is error free, the topology of the relay network is equivalent
+to an ARQ scheme that exploits Shannon's random coding theorem by utilising an interleaver in
+the framework of ARQ Based on this observation, results of simulations conducted to evaluate
+the throughput of an ARQ scheme are presented Based on this contribution, we adopt the Bit-
+Interleaved Coded Modulation using Iterative Decoding (BICM-ID) technique [4] for higher order
+modulation schemes
+Three scenarios of diRerent relay locations are considered in this paper, as shown in Fig In this paper, memory-1 half
+rate (R = 1=2) systematic non-recursive convolutional code (SNRCC) is adopted for both encoders
+C1 and C2 However, this advantage is not signi�Pcant for low SNRsr
+scenarios In this case, the systematic bits are simply extracted instead of performing channel
+decoding However, if error happens in this frame, with frame error rate (FER) denoted by P1,
+second transmission takes place CONCLUSIONS
+In this paper, we have proposed a novel technique that combines the BICM-ID with our proposed
+relay scheme for higher order modulations, which allows the intra-link errors

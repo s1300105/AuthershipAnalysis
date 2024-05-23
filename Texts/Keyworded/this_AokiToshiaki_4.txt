@@ -1,0 +1,62 @@
+ In this paper, we propose a formal
+approach to extract threads from concurrent objects However,
+this is not possible in embedded system developments
+because of the existence of such constraints
+To obtain such design models, we propose in this paper
+a transformation method from analysis model to design
+model Our main
+objectives in this experiment are:
+- to show that we can derive a design model with our
+method in a real application development, and
+- to show that we can implement code based on our design
+model
+The remainder of this paper is organized as follows
+2 Concurrent Regular Expressions
+In this section, we introduce Concurrent Regular Expressions(
+CREs) which are used to formalize our analysis
+and design modelsI n thisp aper, we use only interleaving
+and synchronous composition operators In the remainder
+of this paper, we use [ ] for [o] [ ] does
+not have this property
+3 Formalizing Analysis and Design Models
+In this section, we formalize both analysis and design
+models with CREs work and exit in this orderclose
+The behavior corresponding to this expression is its language However, we can describe
+an expression that violates this rule
+In our approach, we achieve this transformation with
+an axiomatics ystem for equivalentt ransformationo n concurrent
+regular expressions There are 2 rules in this
+Reflection
+Zero
+Identity
+Commutative
+Associative
+Distributive
+Synchronous
+Confliction
+Interleaving
+Spining
+Optimizing
+Threads
+A[S]A= A
+A[S]1 =
+A[S]r = A if S n EA =
+A[S]B= B[S]A
+(A[ ]B)[ ]c = A[ ](B[ ]c)
+(A + B)[S]C =
+(A[S U (EB n Ec)]C) + (B[s U (EA n Ed]C)
+(x1 Target Environment
+We suppose that the target system for this driver has the
+following hardware In this action, the
+objects CH0, CH1 and CH2 calculate their output values and
+SYN generates an output value for D/A from these 3 output
+values4 Design Phase
+In this section, we design the system6 Extracting Threads
+In this section, we obtain subthreads from the design
+model The caller thread of
+this function enters the critical section
+6 Conclusion
+In this paper, we proposed the axiomatic system for the
+equivalent transformation on CREs Using this transformation
+we can systematically obtain design models from
+an analysis model

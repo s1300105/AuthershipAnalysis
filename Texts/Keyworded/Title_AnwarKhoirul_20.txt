@@ -1,0 +1,10 @@
+Title
+BICM-ID for Relay System Allowing Intra-link
+Errors and a Similarity Constellation to ARQ
+Schemes
+
+Issue Date 2012-03
+
+Abstract| In this paper, we propose an accumulator-assisted (ACC) relay system with bit-
+interleaved coded modulation using iterative decoding (BICM-ID) technique and apply the net-
+work topology to an Automatic Repeat Request (ARQ) scheme
