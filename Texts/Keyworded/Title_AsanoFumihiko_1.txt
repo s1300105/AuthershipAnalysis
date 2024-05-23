@@ -1,0 +1,10 @@
+Title
+Limit cycle walking, running, and skipping of
+telescopic-legged rimless wheel
+
+Issue Date 2011-11-29
+
+SUMMARY
+This paper investigates the efficiency and properties of limit
+cycle walking, running, and skipping of a planar, active,
+telescopic-legged rimless wheel

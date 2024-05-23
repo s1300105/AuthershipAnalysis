@@ -1,0 +1,10 @@
+Title
+Extracting threads from concurrent objects for
+the design of embedded systems
+
+Issue Date 2002-08-05
+
+Abstract
+As a result of the increasing size and complexity of embedded
+systems, object-oriented techniques are going to be
+adopted in the embedded software development

@@ -1,0 +1,10 @@
+
+Title
+A New Class of RC4 Colliding Key Pairs With
+Greater Hamming Distance
+
+Issue Date 2010
+
+Type Journal Article
+Text version author
+URL http://hdl

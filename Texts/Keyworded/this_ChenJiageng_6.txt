@@ -1,0 +1,49 @@
+ In this paper, we discovered a new class of colliding key pairs
+of RC4, namely, two dierent secret keys generate the same internal
+state after RC4's key scheduling algorithm We analyzed the transition pattern and evaluated the
+probability of the existence of this new class of colliding key pairs And this
+newly discovered class of colliding key pairs reveals the weakness that
+RC4's key scheduling algorithm could generate even more colliding keys
+We also proposed an algorithm for searching colliding key pairs within
+this new class Some concrete colliding key pairs are demonstrated in
+this paper, among which 55-byte colliding key pair is the shortest one
+we found by using our algorithm within one hour time In this paper, we demonstrate another class of colliding key pairs We estimated the
+number of colliding key pairs within this newly found class and also we proposed
+a search algorithm which can be used to easily nd such colliding key pairs In this paper, we focus only on KSA We show this interesting pattern in the following section1 Notations and intuitions
+The following are the notations used in this paper First, before i
+touches index d, in this example we assume j1(j2) does not touch d or d + 2 In this example, we let K1[3] = X + t and K2[3] = X for
+some X Table 3 is one example for
+k = 128; d = 4; t = 2; in this case, the dierent positions of the key will appear
+twice during KSA
+In this example, index 4; 5; 7 is the rst appearance (n = 1) of the dierent
+positions of the key, while index 132; 133; 135 is the second appearance (n = 2) (corresponding
+to (3),(7))
+4 Probability Analysis
+In this section, we give probability estimation for our transition pattern The probability for this case(Event D) is ( 254
+256 )d+pk??1 In order for
+this to happen, rst, we need u to remain untouched before i touches it, other-
+wise u will be swapped somewhere before i and the chance for it to be swapped
+to index v
+0
+will be lost The probability of this is ( 255
+256 )u Then when i touches
+u, we have several choices, either to swap u directly to index v
+0
+(we call this one
+hop), or to swap u to an intermediate index t1 between index u and v, and then
+when i touches t1, u can be swapped to index v
+0
+(we call this two hops), etc
+Our results can be seen as an approximate lower bound of the total number of
+this new kind of colliding key pairs, and also we compare our work with the
+results in [2] We do this as
+follows: assume when i touches index d ?? 1, S[d]; :::; S[d + t ?? 1] have not been
+swapped, thus we can pre-compute the sum Sd[d]+  +Sd[d+t??1] = d+  +
+(d+t??1)
+The above algorithm gives us a much more ecient way to search for this new
+class of colliding key pairs We gave prob-
+ability evaluations of our colliding key pairs and showed the scale of this new
+class of colliding key pairs
+Then this is our Q function9(3,2)
+C Some Concrete Colliding Key Pairs
+We demonstrate 4 colliding key pairs in this section with n from 1 to 4
