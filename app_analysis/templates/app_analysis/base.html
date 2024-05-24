@@ -3,27 +3,85 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>File Management</title>
+    <title>{% block title %}File Management{% endblock %}</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css">
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-image: url('https://user0514.cdnw.net/shared/img/thumb/elly20160628465420_TP_V.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        .navbar {
+            width: 100%;
+            background: rgba(255, 0, 0, 0.8);
+        }
+        .content {
+            flex-grow: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        .section {
+            width: 100%;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container {
+            max-width: 800px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .navbar-brand {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+        }
+        .navbar-item {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: white;
+        }
+    </style>
 </head>
 <body>
     <nav class="navbar is-danger">
         <div class="navbar-brand">
             <a href="/home/" class="navbar-item">
-                <strong>AuthorshipAnalysis</strong>
+                AuthorshipAnalysis
             </a>
         </div>
     </nav>
 
-    <br>
-
-    <section class="section">
+    <section class="section content">
         <div class="container">
             {% block content %}
             {% endblock %}
         </div>
     </section>
+	
+	
     
+
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
