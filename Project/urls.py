@@ -17,7 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from app_analysis.views import home, upload, file_detail, deletefile, updatefile, keyword
+from app_analysis.views import home, upload, file_detail, deletefile, updatefile, keyword,qvsk,qvsk_analysis
 
 urlpatterns = [
     path('',home, name="home"),
@@ -27,5 +27,7 @@ urlpatterns = [
     path("<str:pk>/", file_detail, name="file_detail"),
     path("delete-file/<str:pk>", deletefile, name="delete-file"),
     path("updatefile/<str:pk>", updatefile, name="updatefile"),
-    path("keyword", keyword, name="keyword")
+    path("keyword", keyword, name="keyword"),
+    path("qvsk",qvsk,name="qvsk"),
+    path('qvsk_analysis', qvsk_analysis, name='qvsk_analysis'),
 ]

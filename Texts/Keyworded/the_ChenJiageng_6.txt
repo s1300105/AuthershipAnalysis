@@ -1,0 +1,416 @@
+net/10119/9065
+Rights
+This is the author-created version of Springer,
+Jiageng Chen and Atsuko Miyaji, Lecture Notes in
+Computer Science, 6047/2010, 2010, 30-441007/978-3-642-12827-1_3
+Description
+Proceedings of the 6th International Conference,
+ISPEC 2010, Seoul, Korea, May 12-13, 2010 In this paper, we discovered a new class of colliding key pairs
+of RC4, namely, two dierent secret keys generate the same internal
+state after RC4's key scheduling algorithm This is to our knowledge the
+rst discovery of RC4 colliding keys with hamming distance greater than
+one, that is, the colliding key pairs we found can dier from each other at
+three dierent positions, and the value dierence between these positions
+needs not be xed We analyzed the transition pattern and evaluated the
+probability of the existence of this new class of colliding key pairs Our
+result shows that RC4 key collision could be achieved by two keys with
+greater hamming distance than the ones found in [1] and [2] And this
+newly discovered class of colliding key pairs reveals the weakness that
+RC4's key scheduling algorithm could generate even more colliding keys Some concrete colliding key pairs are demonstrated in
+this paper, among which 55-byte colliding key pair is the shortest one
+we found by using our algorithm within one hour time
+1 Introduction
+The RC4 stream cipher is one of the most famous ciphers widely used in real
+world applications such as Microsoft Oce, Secure Socket Layer (SSL), Wired
+Equivalent Privacy (WEP), etc Due to its popularity and simplicity, RC4 has
+become a hot cryptanalysis target since its specication was made public on the
+Internet in 1994 [3] Another popular cryptanalysis area for
+RC4 is in the WEP environment It describes the existence of secret
+key pairs that generate the same initial states after key scheduling algorithm It was pointed
+out by Grosul and Wallach [1] that RC4 has related-key pairs that generate
+hundreds of substantially similar output bytes when the key size is close to the
+full 256 bytes In Matsui's paper [2], much stronger key collisions with shorter key
+? This author is supported by the Graduate Research Program
+?? This work is supported by Grant-in-Aid for Scientic Research (B), 20300003 A state transition sequence of the key scheduling algorithm
+for a related key pair of an arbitrary xed length which can lead to key collisions
+was presented
+In both [1] and [2], the colliding keys found only have hamming distance of
+1 In this paper, we demonstrate another class of colliding key pairs Diering
+from [1] and [2], we showed for the rst time that there exist colliding key pairs
+whose hamming distance is 3, which is greater than 1 That is, two colliding
+keys we found could dier at three positions and the value dierences at these
+three dierent positions do not need to be xed Our result shows that there
+exist many more colliding key pairs than previously expected We estimated the
+number of colliding key pairs within this newly found class and also we proposed
+a search algorithm which can be used to easily nd such colliding key pairs
+Structure of the paper In Section 2, we brie
+y describe the RC4 algorithm
+followed by some previous works on RC4 key collision in Section 3 In Section 4,
+we explain our new transition pattern which will lead to the collision Some techniques needed for the probability analysis,
+the total number of colliding key pairs we found and some concrete colliding key
+examples are summarized in the Appendix1 Description of RC4
+The internal state of RC4 consists of a permutation S of the numbers 0; :::;N ??1
+and two indices i; j 2 f0; :::;N ??1g The index i is determined and known to the
+public, while j and permutation S remain secret RC4 consists of two algorithms:
+The Key Scheduling Algorithm (KSA) and the Pseudo Random Generator Al-
+gorithm (PRGA) At the end, we obtain the initial state SN??1
+Once the initial state is created, it is used by PRGA to generate a keystream
+of bytes which will be XORed with plaintext to generate ciphertext In [1], the authors
+pointed out that for secret keys with lengths close to 256 bytes, it's possible for
+two keys to generate similar internal states after KSA and thus may generate
+hundreds of similar bytes output during PRGA However, their discovery cannot
+be strictly called key collision and their result only works for key length close to
+256 Under the above condition, [2] is
+able to nd a transition pattern that could lead to a total collision after KSA
+The intuition behind the transition pattern is that from the rst time i touches
+the dierent position t, the pattern ensures that there will always be only two
+dierences in the internal state as the key scheduling process goes on And the
+dierence is absorbed when i touches t for the last time Please refer to [2] for
+the detailed description
+Our result shows that RC4 key collision can also be achieved even if the
+hamming distance between two keys is greater than 1 Also, diering from [2],
+our transition pattern is a self-absorbing type, which means that once the internal
+states dierences are generated due to the key dierences, they will be absorbed
+very quickly and the internal states returns to the same till i touches the next
+key dierence We show this interesting pattern in the following section1 Notations and intuitions
+The following are the notations used in this paper
+d: Index of the rst position where the values of the two secret keys dier
+from each other
+k: The length(bytes) of the secret key
+n: The number of times K1[d]; :::;K1[d + t + 1](K2[d]; :::;K2[d + t + 1])
+appear during the KSA In or-
+der to understand how a key pair with the relation described before can achieve
+collision after KSA, we explain by illustrating three examples with dierent
+d; t; n In the simple case where n = 1 (dierent positions appear only once
+during KSA), example 1 and 2 are given to show that collision can be achieved
+by various d and t We analyze the key scheduling process for key pairs
+with the above relation that can lead to collisions We summarize the transition
+pattern in the Table 1,2 and 3, which helps in tracking the internal state of
+RC4 when i touches the dierent positions of the two keys The internal state
+part of each table tracks the information of i; j;K and S-BOX generated by the
+two keys Notice that the value of S-BOX denotes the state after the swap The
+\Dierence" part of each table tells us the dierence between two internal states
+at time i d = 2; t = 2; n = 1(k = 256)
+Internal State Dierence
+i K1[i]=K2[i] j1;i=j2;i 1 2 3 4 5 6
+2 256 ?? j1 2 * 2 3 4 5 * K1[2] = K2[2] ?? 2
+256 ?? j1 + 2 4 * 4 3 2 5 * j1;2 = j2;2 ?? 2; S1 6= S2
+3 X + 2 X + 7 * 2 S[X + 7] 4 5 * K1[3] = K2[3] + 2
+X X + 7 * 4 S[X + 7] 2 5 * j1;3 = j2;3; S1 6= S2
+4 256 ?? X ?? 7 4 * 2 S[X + 7] 4 5 * K1[4] = K2[4]
+256 ?? X ?? 7 2 * 2 S[X + 7] 4 5 * j1;4 = j2;4 + 2; S1 = S2
+5 Y Y + 9 * 2 S[X + 7] 4 S[Y + 9] * K1[5] = K2[5] ?? 2
+Y + 2 Y + 9 * 2 S[X + 7] 4 S[Y + 9] * j1;5 = j2;5; S1 = S2
+Let's demonstrate the case in which the key length is k = 256 byte, d = 2 and
+t = 2 Our key pattern requires that K1[d] = K2[d]??t, K1[d+1] = K2[d+1]+t,
+K1[d + t + 1] = K1[d + t + 1] ?? t and all other parts of the key must be the
+same Now we describe how the new transition pattern works Since
+j1;2 = j1 +2+K1[2] and j2;2 = j1 +4+K2[2] then according to the key pattern,
+we know that K1[2] = 256 ?? j1 and K2[2] = 256 ?? j1 + 2 When
+i increases to d + 1, we need K1[d + 1] and K2[d + 1] to absorb the dierence
+between j1 and j2 When i touches d+t, namely, i = 4, we need j1;4 = d+t and j2;4 = d,
+namely, j1;4 = 4 and j2;4 = 2 so that the dierence between the two S-Boxes is
+absorbed Now the internal dierence exists only between j1;4 and j2;4 Finally
+when i = d+t+1, namely, i = 5, then K1[d+t+1](Y) and K2[d+t+1])(Y+2)
+are there to absorb the dierence between j1;4 and j2;4 For the rest of the
+steps(i > d + t + 1), the internal state remains the same, until the end of KSA
+Table 1 describes the above transition procedure3 Example 2 (d = 3; t = 3; n = 1(k = 256))
+In Example 2, we change the values d and t to demonstrate that parameters
+d; t need not be xed in order to achieve collisions4 Example 3 (d = 4; t = 2; n = 2(k = 128))
+Notice that Examples 1 and 2 directly apply to the situations where the three
+dierent positions of the key appear only once during the KSA, such as the
+256-byte key However, when the three dierent positions of the key appear
+more than once, in other words, when the key becomes short, extra conditions
+need to be satised in order to achieve collision Table 3 is one example for
+k = 128; d = 4; t = 2; in this case, the dierent positions of the key will appear
+twice during KSA This example will give us all the techniques for even shorter
+keys In order to extend the pattern to normal situations, we use abstract values
+such as a; b instead of specic values
+In this example, index 4; 5; 7 is the rst appearance (n = 1) of the dierent
+positions of the key, while index 132; 133; 135 is the second appearance (n = 2)
+After i touches index 135, the two internal states become same for the rest of
+KSA Because the key pairs are determined during the rst appearance (index
+4; 5; 7), index 132; 133; 135 have to use the same keys as index 4; 5; 7 d = 4; t = 2; n = 2(k = 128)
+Internal State Dierence
+i K1[i]=K2[i] j1;i=j2;i 4 5 6 7
+4 d ?? a ?? j3 d a b a + 2 S[7] K1[4] = K2[4] ?? 2
+d ?? a ?? j3 + 2 d + 2 a + 2 b a S[7] j1;4 = j2;4 ?? 2; S1 6= S2
+5 X + 2 X + b + d + 2 a S1[X + b + d + 2] a + 2 S[7] K1[5] = K2[5] + 2
+X X + b + d + 2 a + 2 S2[X + b + d + 2] a S[7] j1;5 = j2;5; S1 6= S2
+6 254 ?? X ?? a ?? b d + 2 a S1[X + b + d + 2] a + 2 S[7] K1[6] = K2[6]
+254 ?? X ?? a ?? b d a S2[X + b + d + 2] a + 2 S[7] j1;6 = j2;6 + 2; S1 = S2
+7 Y Y + d + 2 + S[7] a S1[X + b + d + 2] a + 2 S1[Y + d + 2 + S[7]] K1[7] = K2[7] ?? 2
+Y + 2 Y + d + 2 + S[7] a S2[X + b + d + 2] a + 2 S2[Y + d + 2 + S[7]] j1;7 = j2;7; S1 = S2
+i K1[i]=K2[i] j1;i=j2;i 132 133 134 135
+132 d ?? a ?? j3 132 j3 ?? j131 + 132 + a ?? d S[133] j3 ?? j131 + 134 + a ?? d S[135] K1[132] = K2[132] ?? 2
+d ?? a ?? j3 + 2 134 j3 ?? j131 + 134 + a ?? d S[133] j3 ?? j131 + 132 + a ?? d S[135] j1;132 = j2;132 ?? 2; S1 6= S2
+133 X + 2 X + S[133] + 134 j3 ?? j131 + 132 + a ?? d S[X + S[133] + 134] j3 ?? j131 + 134 + a ?? d S[135] K1[133] = K2[133] + 2
+X X + S[133] + 134 j3 ?? j131 + 134 + a ?? d S[X + S[133] + 134] j3 ?? j131 + 132 + a ?? d S[135] j1;133 = j2;133; S1 6= S2
+134 254 ?? X ?? a ?? b 134 j3 ?? j131 + 132 + a ?? d S[X + S[133] + 134] j3 ?? j131 + 134 + a ?? d S[135] K1[134] = K2[134]
+254 ?? X ?? a ?? b 132 j3 ?? j131 + 132 + a ?? d S[X + S[133] + 134] j3 ?? j131 + 134 + a ?? d S[135] j1;134 = j2;134 + 2; S1 = S2
+135 Y Y + 134 + S[135] j3 ?? j131 + 132 + a ?? d S[X + S[133] + 134] j3 ?? j131 + 134 + a ?? d S[Y + 134 + S[135]] K1[135] = K2[135] ?? 2
+Y + 2 Y + 134 + S[135] j3 ?? j131 + 132 + a ?? d S[X + S[133] + 134] j3 ?? j131 + 134 + a ?? d S[Y + 134 + S[135]] j1;135 = j2;135; S1 = S2
+natural to think that in order for the transition pattern to work for shorter keys,
+there are some extra conditions that need to be satised and the requirement
+for those extra conditions come from the fact that keys are determined in the
+rst appearance and could not be changed from that point According to the
+transition table 3, we can derive j1;134 = j1;133 + K1[6] + S1;133[134] = (X +
+S[133] + 134) + (254 ?? X ?? a ?? b) + (j3 ?? j131 + 134 + a ?? d), thus S[133] =
+a + b + j131 ?? j3 ?? a + d ?? 132 We also know from the table that S[132] =
+j3 ??j131 +132+a??d This is exactly the
+extra condition that our transition sequence should satisfy in the case of n = 2
+In summarizing, the following conditions should be satised in order to achieve a
+collision for case d = 4; t = 2; n = 2(k = 128) All the conditions could be derived
+from the transition table 3 except for the little tricky one S[132]+S[133] = a+b,
+which we have just calculated From
+the above analysis, we could easily derive the sucient and necessary conditions
+for our transition pattern, namely,
+1
+Assume that K1 and K2 form a k byte key pair which has the following
+properties: K1[d] = K2[d] ?? t, K1[d + 1] = K2[d + 1] + t, K1[d + t + 1] =
+K1[d + t + 1] ?? t for some t, d and n From the previous section, we know the
+conditions for our transition pattern Now we formalize some conditions into
+events for convenience in the analysis The probability of Event E is the complement of Event D,
+namely, 1 ?? ( 254
+256 )d+pk??1
+According to the law of total probability, we have
+P(B) = P(BjD)P(D) + P(BjE)P(E)
+= 1  ( 254
+256 )d+pk??1 + 1
+256  (1 ?? ( 254
+256 )d+pk??1)
+= 255
+256  ( 254
+256 )d+pk??1 + 1
+256
+Fig Event B
+Figure 1 shows the experimental and theoretical results with d + pk from
+3 to 200 From the gure, we can see that the theoretical result agrees with
+the experimental result very well Notice that the probability of Event B is not
+aected by value t
+Before evaluating Event C, let's rst look at the following Lemma 3 The probability of Sv[v
+0
+] in round v equals to some value u(u <
+v or u = v
+0
+; v
+0
+ v) is as follows:
+(1) When u = v
+0
+, then
+P(Sv[v
+0
+] = u) = (
+255
+256
+)v
+(2) When u < v, then
+P(Sv[v
+0
+] = u) = ( 255
+256 )v??1 1
+256+
+Pv??1
+t1=u+1( 255
+256 )v??2( 1
+256 )2+
+Pv??2
+t1=u+1
+Pv??1
+t2=t1+1( 255
+256 )v??3
+( 1
+256 )3 +    +
+Pv??(n??1)
+t1=u+1   
+Pv??1
+tn??1=tn??2+1( 255
+256 )v??n  ( 1
+256 )n
+where n = v ?? u Thus the probability is ( 255
+256 )v In order for
+this to happen, rst, we need u to remain untouched before i touches it, other-
+wise u will be swapped somewhere before i and the chance for it to be swapped
+to index v
+0
+will be lost Then when i touches
+u, we have several choices, either to swap u directly to index v
+0
+(we call this one
+hop), or to swap u to an intermediate index t1 between index u and v, and then
+when i touches t1, u can be swapped to index v
+0
+(we call this two hops), etc As
+you may guess, there exist maximum v ?? u hops Thus the probability is ( 255
+256 )u  1
+256 
+( 255
+256 )v??u??1=(255
+256 )v??1  1
+256
+Two hops: When i touches u, u is rst swapped to index t1 between index
+u and v with probability 1
+256  Then when i touches t1, u is swapped to index v
+0
+with probability
+1
+256 and then index v
+0
+remains untouched for v ?? t1 ?? 1 rounds Notice that
+the intermediate index t1 can vary between u + 1 and v ?? 1, thus the probabil-
+ity of the above is
+Pv??1
+t1=u+1( 255
+256 )u  1
+256  ( 255
+256 )t1??u??1  1
+256  ( 255
+256 )v??t1??1 = Pv??1
+t1=u+1( 255
+256 )v??2  ( 1
+256 )2
+Three hops: The analysis is the same as for two hops
+Thus the probability is
+Pv??2
+t1=u+1
+Pv??1
+t2=t1+1( 255
+256 )u  1
+256  ( 255
+256 )t1??u??1  1
+256 
+( 255
+256 )t2??t1??1  1
+256  ( 255
+256 )v??t2??1 =
+Pv??2
+t1=u+1
+Pv??1
+t2=t1+1( 255
+256 )v??3  ( 1
+256 )3
+For cases of more than 4 hops, the above analysis works in the same way By
+summing these results together, we get our nal result The theoretical result agrees well with the experimental
+result, except for a few points as shown in Figure 2 Theorem 3
+Now we are ready to calculate Event C by using the above Lemma and
+partition techniques Refer to Appendix A for a more specic description of the
+integer partitioning algorithm The probability of Event C is
+P(Cd;k;p) =
+#(Q(XX)??I(X))
+i=0
+tY??1
+j=0
+(Pd+pk[d + pk + j] = qij)
+where Q(X) denotes the partition function with input X the number to be par-
+titioned, and the output is a set of t-element tuples I(X) denotes the subset of Q(X) which satises the following con-
+ditions: Sd+pk[d + pk]; :::; Sd+pk[d + pk + t ?? 1] > d + pk and Sd+pk[d + pk] 6=
+d + pk, qij denotes the jth element in
+tuple i of set Q(X) ?? I(X) According to the denition of Event C, our goal is to partition the sum
+Sd[d]+  +Sd[d+t??1] and calculate the probability that the t-element partition
+will be in position d+pk; :::; d+pk+t??1 Here, one thing to notice is that when the
+dierence between (d+pk)+  +(d+pk+t??1) and Sd[d]+  +Sd[d+t??1] is larger
+than 256q for some q  0, than the partition of Sd[d]+  +Sd[d+t??1]+256q
+is also a possible partition for positions d + pk; :::; d + pk + t ?? 1 Thus the
+input of partition function Q(X) can vary depending on the relation between
+PS and PD The subset I(X) indicates partitions that will never occur in the
+situation of RC4 This is easy to see because before i touches index d + pk,
+S[d + pk]; :::; S[d + pk + t ?? 1] could never become a value greater than index
+d + pk except for the value of the index itself, which is the case in which these
+values have never been swapped before Thus Q(X)??I(X) denotes all the legal
+pQartitions t??1
+j=0(Pd+pk[d + pk + i] = qij) is the probability of each legal partition being in
+positions d+pk; :::; d+pk+t??1 The probability is calculated by using Lemma 3,
+and we have t elements for each partition, so we need to multiply them together
+Since there are a total #(Q(X)??I(X)) partitions, by summing them together,
+we get the probability of Event C
+Figure 3 represents the experimental and theoretical probability of Sd[d] +
+Sd[d+1]+  +Sd[d+t??1]  Sd+k[d + k] + Sd+k[d + k + 1] +    + Sd+k[d + k + t ?? 1]
+(mod 256) for xed k; t and various d When i
+touches these positions, j should not touch d + pk and d + pk + t This gives us
+the probability ( 254
+256 )t??1 Assume that K1 and K2 form a k-byte key pair which has the fol-
+lowing properties: K1[d] = K2[d] ?? t, K1[d + 1] = K2[d + 1] + t, K1[d + t + 1] =
+K1[d+t+1]??t for some xed t, d and n Then the probability that K1 and K2
+are a colliding key pair is
+Pcol(t; d; k) = (P(A))n+1(P(Dt))n
+nY??1
+p=0
+P(Bd;k;p)
+nY??1
+p=1
+P(Cd;k;p)
+Proof Recall the conditions we summarized in the previous section What we are
+doing here is just combining all the conditions When p = 0, there is no restriction
+on Event C When p  1, according to
+the previous analysis, we have
+Qn??1
+p=1 P(A)P(B)P(C)P(D) By multiplying these
+two cases together, we get our result
+Since parameters d and t are not required to be xed in our pattern, the total
+probability should include various d and t This gives us the following Corollary Assume that K1 and K2 form a k-byte key pair which has the
+following properties: K1[d] = K2[d]??t, K1[d+1] = K2[d+1]+t, K1[d+t+1] =
+K1[d+t+1]??t Then the probability that K1 and K2 are a colliding key pair is
+Pcol(t; d; k) =
+kX??4
+d=0
+k??Xd??2
+t=2
+(P(A))n+1(P(Dt))n
+nY??1
+p=0
+P(Bd;k;p)
+nY??1
+p=1
+P(Cd;k;p)
+Proof Let's look at the bounds for d and t First, for every xed d, the max
+value t has to satisfy d+t = k??2, and the smallest value of t is 2 in our pattern
+Corollary 1 gives us the total collision probability of two keys with length k
+satisfying conditions K1[d] = K2[d]??t, K1[d+1] = K2[d+1]+t and K1[d+t+1] =
+K1[d + t + 1] ?? t Thus the number of colliding key pairs could be calculated
+by multiplying 28k We choose d; t such that
+for a given k, they make the dierent positions of the key pair appear least
+often in the KSA For example, for k = 24, we choose d = 17; t = 2 so that the
+dierent positions of the key pair appear 10 times not 11 times during KSA
+The probability of the 10 times dominates, so we can ignore the 11 times d; t
+Our results can be seen as an approximate lower bound of the total number of
+this new kind of colliding key pairs, and also we compare our work with the
+results in [2] Please refer
+to Appendix B for the detailed results The values in parentheses in our result
+denote the chosen values of d and t
+Finding the colliding key pairs we found involved some detection tricks Recall
+the necessary conditions of the transition pattern we have to satisfy, namely,
+Event A, Event B, Event C and Event D For Event B and Event C, we can
+control them to let them occur with much higher probability We do this as
+follows: assume when i touches index d ?? 1, S[d]; :::; S[d + t ?? 1] have not been
+swapped, thus we can pre-compute the sum Sd[d]+  +Sd[d+t??1] = d+  +
+(d+t??1) Then we compute n??1 partitions of the sum, namely, (qi;1; :::; qi;t); i 2
+[1; n??1]; d for Event C Also for Event B we can calculate pi = qi;1+t according
+to the partitions we calculated Now we need to adjust two secret keys during
+KSA so that the values of p and q will be swapped to the corresponding positions
+S[d+pk]; :::; S[d+pk+t] during the rst appearance of the secret key After the
+secret key begins to duplicate during KSA, we only hope that those positions
+d + pk; :::; d + pk + t will not be touched before i touches them and Event A
+occurs The key point here is that we can control the behavior
+of the keys to satisfy our conditions in the process of the rst key appearance
+in KSA However, as the length of the key becomes shorter, in other words,
+as the number of appearances of the key increases, we'll have less control over
+the behavior during the KSA process Our new transition pattern requires relatively loose con-
+ditions on the key pairs, namely, our colliding key pairs can dier at more than
+one position and the value dierence can also be more than one We gave prob-
+ability evaluations of our colliding key pairs and showed the scale of this new
+class of colliding key pairs: Key Collisions of the RC4 Stream Cipher: A Class of Weak Keys in the RC4 Stream Cipher (1995),
+http://marcel: A New Weakness in the RC4 Keystream Generator and an
+Approach to Improve Security of the Cipher: Weaknesses in the Key Scheduling Algorithm of
+RC4: Attacks on the RC4 Stream Cipher The partitions of an integer are the ways to write it as a sum of
+positive integers] Visit the partition a1:::at Otherwise set x   aj + 1; aj   x;
+j   j ?? 1
+For example, Pa(11,4) will generate the following partitions:
+8111; 7211; 6311; 5411; 6221; 5321; 4421; 4331; 5222; 4322; 3332
+Use it twice, namely, Pa(n,t) and Pa(n,t-1) to include 0 value cases in the parti-
+tions, and perform the permutation on each tuple (a1:::at) to cover all the cases
+B Number of colliding key pairs
+Table 4 shows the number of newly discovered colliding key pairs, compared with
+[2]'s results The values in the parentheses denote d and t "-" means colliding
+key pairs do not exist theoretically \-"
+denotes that K1 and K2 have the same value

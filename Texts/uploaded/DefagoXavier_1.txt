@@ -1,3 +1,4 @@
+
 Title
 The cost of probabilistic agreement in oblivious
 robot networks
@@ -43,7 +44,7 @@ the system needs. Surprisingly, the use of randomization has however drawn only 
 framework was proposed in order to analyze the correctness and the complexity of probabilistic algorithms
 designed for robots networks. In a companion paper [1], we investigated some of the fundamental limits of deterministic
 and probabilistic gathering in the face of a wide range of synchrony and fault assumptions. Probabilistic
-scattering was analyzed for the first time by DieudonnÔøΩLe and Petit [2]. However, neither work proposed an actual
+scattering was analyzed for the first time by DieudonnÅLe and Petit [2]. However, neither work proposed an actual
 framework in which to analyze the complexity of proposed solutions.
 In this paper, we advocate the use of Markov chains as a simple and efficient tool to analyze and compare
 probabilistic strategies in oblivious robot networks. Note that, in oblivious robot networks, computations can
@@ -115,7 +116,7 @@ with unlimited visibility, convergence can be achieved trivially by having robot
 network [8].
 The scattering problem was first introduced by Suzuki and Yamashita [7]. The problem aims at arranging a set
 of robots such that eventually no two robots share the same position. Let us denote by PScattering this predicate.
-In the sequel, we rely on the following definition proposed by DieudonnÔøΩLe and Petit [2]:
+In the sequel, we rely on the following definition proposed by DieudonnÅLe and Petit [2]:
  Convergence. Any execution of the system starting in an arbitrary configuration reaches in a finite number
 of cycles a configuration that satisfies PScattering.
  Closure. Any execution starting in a legitimate configuration with respect to PScattering contains only
@@ -132,7 +133,7 @@ In the sequel, we use the following notation:
  X : k 7! P[X = k] denotes the probability distribution of a random variable X.
 2Unless stated otherwise, we make no specific assumption regarding the respective positions of robots in initial configurations.
 3
- P[A j B] is the conditional probability that reads: ÔøΩgthe probability of A, given BÔøΩh.
+ P[A j B] is the conditional probability that reads: Ågthe probability of A, given BÅh.
 Markov chains Markov chains form a specific class of stochastic processes, with the following fundamental
 property: the probabilistic dependence on the past is only related to the previous state.
 Definition 1 Let (Xn)n2N be a discrete time stochastic process with countable state space E. A stochastic process
@@ -151,14 +152,14 @@ our argument on the case where all robots are initially within moving distance o
 5 The Case of Strong Multiplicity Knowledge
 In this section, we assume that robots have strong multiplicity knowledge.
 To achieve scattering, we want robots located at the same point x0 to move randomly to different destinations.
-If we are able to generate a sufficiently large number of ÔøΩgpossible destinationsÔøΩh, it is more likely that the robots will
-move to distinct locations. Therefore, to be efficient, it is desirable that the number of these ÔøΩgpossible destinationsÔøΩh
+If we are able to generate a sufficiently large number of Ågpossible destinationsÅh, it is more likely that the robots will
+move to distinct locations. Therefore, to be efficient, it is desirable that the number of these Ågpossible destinationsÅh
 increases according to the multiplicity of x0. Since robots have strong multiplicity knowledge, they are aware of
 the number of robots located at each multiplicity point.
 In gathering, we require all robots to gather at a single location. Since robots have strong multiplicity knowledge,
 they are able to determine the best location to gather, i.e, the point of maximal multiplicity.
 5.1 Probabilistic scattering
-DieudonnÔøΩLe and Petit [2] proved that deterministic scattering is impossible in the SYm model without additional
+DieudonnÅLe and Petit [2] proved that deterministic scattering is impossible in the SYm model without additional
 assumptions, and proposed an original probabilistic solution based on the use of Voronoi diagrams, described and
 analysed in Section 6.1.
 Definition 2 Let P = fp1; p2; : : : ; png be a set of points in the Cartesian 2-dimensional plane. The Voronoi
@@ -284,7 +285,7 @@ In earlier work [1], we proposed a probabilistic algorithm that solves the fault
 model, under a specific class of schedulers, known as k-bounded schedulers.3
 Briefly, the algorithm works as follows. A robot, when chosen by the scheduler, randomly selects one of its
 neighbors and moves towards its position with probability 1
- , where  is the size of the robotÔøΩfs view. In the model
+ , where  is the size of the robotÅfs view. In the model
 considered, robots have unlimited visibility, and hence the value of  is n.
 We proved that this strategy probabilistically solves 2-gathering in the SYm model under an arbitrary scheduler
 and converges in 2 rounds in expectation. We also proved that it solves the n-gathering problem (n  3), under
@@ -326,7 +327,7 @@ configuration with a unique point of maximal multiplicity is at least 1
 Proof: This lemma is an obvious consequence of Algorithm 5.2. Briefly, when there are several points of maximal
 multiplicity, the activated robot moves with probability 1
 2n and selects one of the points of maximal multiplicity
-as its destination. That pointÔøΩfs multiplicity then increases by one.
+as its destination. That pointÅfs multiplicity then increases by one.
 We are now able to prove the convergence.
 Theorem 2 Algorithm 5.2 achieves convergence in O(1) expected rounds at worst.
 Proof: The analysis can be decomposed into two phases. First, the algorithm must reach a configuration with one
@@ -416,8 +417,8 @@ aj
 Consequently, we can conclude that exactly one point with maximal multiplicity appears with constant probability
 (more than 1
 8 ) in a single round. Now, let us consider the two-states variable:
- Zt = 1 when ÔøΩgthere is only one maximal multiplicity point at time t.ÔøΩh
- Zt = 0 when ÔøΩgthere are several maximal multiplicity points at time t.ÔøΩh
+ Zt = 1 when Ågthere is only one maximal multiplicity point at time t.Åh
+ Zt = 0 when Ågthere are several maximal multiplicity points at time t.Åh
 (Zt)t2N is a Markov chain and we need the expectation of the time needed for this stochastic process to reach
 state 1 starting from state 0. Formally,
 T1
@@ -464,8 +465,8 @@ e
 jRj
 11
 . To do so, we introduce the following two random variables:
- Z1 is ÔøΩgthe multiplicity of point x0 at time t1ÔøΩh
- Z2 is ÔøΩgthe maximal multiplicity of all points in Q n fx0g at time t1ÔøΩh
+ Z1 is Ågthe multiplicity of point x0 at time t1Åh
+ Z2 is Ågthe maximal multiplicity of all points in Q n fx0g at time t1Åh
 The reader may easily observe that P[Z1  3
 4 jRj ^ Z2  3
 4 jRj] = 0. Thus, we have
@@ -497,7 +498,7 @@ P[Z1  3
  3
 4 jRj]  e??jRj
 8
-where we use ChernoffÔøΩfs bound5 for the binomial distribution BjRj;12
+where we use ChernoffÅfs bound5 for the binomial distribution BjRj;12
 . This proves the case.
 Case 2 P[Z2  3
 4 jRj]  2e?? 3
@@ -661,19 +662,19 @@ model. Therefore, we intend to apply this approach to analyze other algorithms f
 as, leader election or flocking.
 Acknowledgments
 We would like to express our gratitude to the associate editor and the anonymous reviewers for their numerous
-insightful comments that greatly helped improve this manuscript. This work is partially supported by RÔøΩLegion
-?Ile-de-France (Julien Clement), by MEXT Grant-in-Aid for Young Scientists (A) No. 18680007 (Xavier DÔøΩLefago),
+insightful comments that greatly helped improve this manuscript. This work is partially supported by RÅLegion
+?Ile-de-France (Julien Clement), by MEXT Grant-in-Aid for Young Scientists (A) No. 18680007 (Xavier DÅLefago),
 and by the Telecommunication Advancement Foundation (Taisuke Izumi).
 References
-[1] Xavier DÔøΩLefago, Maria Gradinariu, StÔøΩLephane Messika, and Philippe Raipin ParvÔøΩLedy. Fault-tolerant and selfstabilizing
+[1] Xavier DÅLefago, Maria Gradinariu, StÅLephane Messika, and Philippe Raipin ParvÅLedy. Fault-tolerant and selfstabilizing
 mobile robots gathering. In Shlomi Dolev, editor, DISC, pages 46?60. Springer, 2006.
-[2] Yoann DieudonnÔøΩLe and Franck Petit. Robots and demons (code of the origins). In FUN, pages 108?119, 2007.
+[2] Yoann DieudonnÅLe and Franck Petit. Robots and demons (code of the origins). In FUN, pages 108?119, 2007.
 [3] N. A. Lynch. Distributed Algorithms. Morgan Kaufmann, San Francisco, CA, USA, 1996.
 [4] N. A. Lynch, R. Segala, and F. W. Vaandrager. Hybrid I/O automata. Information and Computation,
 185(1):105?157, August 2003.
 [5] J.R. Norris. Markov Chains. Cambridge University Press, 1997.
 [6] G. Prencipe. CORDA: Distributed coordination of a set of autonomous mobile robots. In Proc. 4th European
-Research Seminar on Advances in Distributed Systems (ERSADSÔøΩf01), pages 185?190, May 2001.
+Research Seminar on Advances in Distributed Systems (ERSADSÅf01), pages 185?190, May 2001.
 [7] I. Suzuki and M. Yamashita. A theory of distributed anonymous mobile robots formation and agreement
 problems. Technical report, Wisconsin Univ. Milwakee, Dept. of EECS, 1994.
 [8] I. Suzuki and M. Yamashita. Distributed anonymous mobile robots: Formation of geometric patterns. SIAM
