@@ -1,3 +1,4 @@
+
 Title
 Extracting threads from concurrent objects for
 the design of embedded systems
@@ -179,7 +180,7 @@ St is a regular expression which corresponds to a sequence
 x. For example, x = a.b. c for x = a ? b - c. Ep is a set
 of all symbols which appear on expression P. P i is defined
 as the ith sequence of P. For example, P1 = P, P2 = P.P
-and P3 = P.P.P, .... PÔøΩÔøΩ is defined as f for any P.
+and P3 = P.P.P, .... PÅã is defined as f for any P.
 w/E means a restriction of w over E. For instance, a ? c -
 a?d?a?b/{a,c}=a-c-a?a
 The operator [S] is different from that of original CREs.
@@ -602,7 +603,7 @@ G (Un=0a i.(Uj=0(X[] bj.Y)))+
 (P-(X][Q .Y)+) (Q.(P.X[]Y))
 Theorem 5.2
 (P. [ ]Cr) t (P + Q)*
-ifP=UÔøΩÔøΩ=0 al, Q=Um=0bi and EP(lEq =
+ifP=UÅã=0 al, Q=Um=0bi and EP(lEq =
 P*[ ]Li 4 (f + P.P*)[](E + Q.Q*)
 By the distributivea xiom,
 G E+ P.P* + Q.Q*+ (P.P*[]4.Q*)...(1)

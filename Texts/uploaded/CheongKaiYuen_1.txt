@@ -1,3 +1,4 @@
+
 Title
 Unconditionally Secure Oblivious Transfer Based
 on Channel Delays
@@ -22,8 +23,7 @@ can be based on OT 
 graphic functionalities where the users do not fully trust each other
 In the rst OT system introduced by Rabin 
  a message is received with
-probability 	
- and the sender does not know whether the message reaches the
+probability 	 and the sender does not know whether the message reaches the
 other side Even et al dened the 	outof OT 
  where the sender has two
 secrets and the receiver can choose one of them in an oblivious manner That is
@@ -183,8 +183,7 @@ cannot get sc?? 
 Bobs security If Alice follows the protocol it is clear that she cannot get
 any information about c because all possible sets of I?? I are equally likely
 Therefore the protocol is perfectly secure against the semihonest Alice
-Unconditionally Secure Oblivious Transfer Based on Channel Delays 
-
+Unconditionally Secure Oblivious Transfer Based on Channel Delays 
  Constructing the full protocol
  Insecurity of the basic protocol
 The problem with the semihonest protocol is that when Alice is malicious it is
@@ -475,42 +474,31 @@ The nal communication overhead of our protocol is On	 log n for security
 parameter n This is rather high and it would be better if it can be reduced
 References
 	 C	 Crepeau Equivalence between two avours of oblivious transfer In Advances
-in Cryptology  CRYPTO  LNCS  pp	
-
- 	
+in Cryptology  CRYPTO  LNCS  pp	 	
 	 C	 Crepeau Ecient cryptographic protocols based on noisy channels In Advances
 in Cryptology  EUROCRYPT  LNCS  pp	 	
 	 C	 Crepeau and J	 Kilian Achieving oblivious transfer using weakened security
-assumption In Proc IEEE FOCS pp	
- 	
+assumption In Proc IEEE FOCS pp	 	
 	 C	 Crepeau K	 Morozov and S	 Wolf Ecient unconditional oblivious transfer
 from almost any noisy channel In Fourth Conference on Security in Communica	
-tion Networks LNCS 
- pp	
- 	
-
-	 C	 Crepeau and G	 Savvides Optimal reductions between oblivious transfers using
+tion Networks LNCS  pp	 	
+	 C	 Crepeau and G	 Savvides Optimal reductions between oblivious transfers using
 interactive hashing In Advances in Cryptology  EUROCRYPT 
  LNCS 
 pp	 	
 	 S	 Even O	 Goldreich and A	 Lempel A randomized protocol for signing contracts
 Communications of the ACM 
- pp	 
-	
+ pp	 	
 	 J	 Kilian Founding cryptography on oblivious transfer In Proc 
 th ACM Sym	
 posium on Theory of Computing pp	 	
 	 P	 Palmieri and O	 Pereira Building oblivious transfer on channel delays In Proc
 Inscrypt 
- LNCS 
- pp	
- 	
+ LNCS  pp	 	
 	 M	 Rabin How to exchange secrets by oblivious transfer Technical Report TR	
 Aiken Computation Laboratory Harvard University 	
 	 J	 Wullschleger Oblivious transfer from weak noisy channels In Theory of Cryp
-tography Conference  LNCS 
- pp	 	
+tography Conference  LNCS  pp	 	
 	 A	 Yao Protocols for secure computations Proc 
-
-rd IEEE Symposium on Foun	
+rd IEEE Symposium on Foun	
 dations of Computer Science pp	 	

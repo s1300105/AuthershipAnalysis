@@ -1,3 +1,4 @@
+
 Title
 A New Class of RC4 Colliding Key Pairs With
 Greater Hamming Distance
@@ -67,8 +68,7 @@ three dierent positions do not need to be xed. Our result shows that there
 exist many more colliding key pairs than previously expected. We estimated the
 number of colliding key pairs within this newly found class and also we proposed
 a search algorithm which can be used to easily nd such colliding key pairs.
-Structure of the paper. In Section 2, we brie
-y describe the RC4 algorithm
+Structure of the paper. In Section 2, we briey describe the RC4 algorithm
 followed by some previous works on RC4 key collision in Section 3. In Section 4,
 we explain our new transition pattern which will lead to the collision. We give
 probability evaluations in Section 5 and nally we describe an ecient colliding
@@ -146,8 +146,7 @@ k: The length(bytes) of the secret key.
 n: The number of times K1[d]; :::;K1[d + t + 1](K2[d]; :::;K2[d + t + 1])
 appear during the KSA. n = b 256+k??1??d
 k c
-The colliding key pairs' behavior is in
-uenced by three parameters d; t; n. In or-
+The colliding key pairs' behavior is inuenced by three parameters d; t; n. In or-
 der to understand how a key pair with the relation described before can achieve
 collision after KSA, we explain by illustrating three examples with dierent
 d; t; n. In the simple case where n = 1 (dierent positions appear only once

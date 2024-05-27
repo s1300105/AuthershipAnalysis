@@ -1,3 +1,4 @@
+
 Title
 Accelerated UCT and Its Application to Two-Player
 Games
@@ -41,7 +42,7 @@ moves based on the playout result at the leaf.
 At each internal node n, UCT selects move j with the largest UCB value
 defined as:
 ucbj := rj + C
-ÔøΩÔøΩ
+Å„
 log s
 nj
 ; (1)
@@ -59,7 +60,7 @@ for the playouts performed previously. Because the current playout is
 performed at a more valuable leaf than previously preformed ones, the
 current playout result is considered to be more reliable. Thus, MCTS
 can search a more important part of the search tree by forgetting the
-side effects of previous playouts. Although Kocsis and SzepesvÔøΩLariÔøΩfs Discounted
+side effects of previous playouts. Although Kocsis and SzepesvÅLariÅfs Discounted
 UCB algorithm [14] is an example of such an approach, results
 for adapting it to tree search have not been reported yet except for an
 unsuccessful report in the Computer Go Mailing List [8].
@@ -79,7 +80,7 @@ of UCT. Section 3 reviews the literature. Section 4 describes Accelerated
 UCT, followed by experimental results in Section 5. Section 6 discusses
 conclusions and future work.
 2 Drawback of UCT
-Kocsis and SzepesvÔøΩLari proved that the UCB value converges on the optimal
+Kocsis and SzepesvÅLari proved that the UCB value converges on the optimal
 value [13]. This indicates that UCT can eventually select an identical
 move to the minimax (i.e., optimal) strategy. However, while this theoretical
 property assumes the condition of which unlimited time is given
@@ -91,7 +92,7 @@ even if playout results are accurate. The winning ratio of the first player is s
 below, UCT therefore suffers from a deceptive structure in its partially
 built tree, which may be a cause of selecting a wrong move that may
 lead to losing a game.
-Because UCTÔøΩfs playouts often mistakenly evaluate winning positions as
+Because UCTÅfs playouts often mistakenly evaluate winning positions as
 losses or vice versa, one example of deceptive structures is caused by an
 inaccurate winning ratio computed by such faulty playout results. Playout
 policies could be modified to decrease the frequency of encountering
@@ -149,14 +150,14 @@ after the t-th playout is performed. The Discounted UCB value ducbt;j
 is defined as5:
 ducbt;j := rD
 t;j + C
-ÔøΩÔøΩ
+Å„
 log sDt
 nD
 t;j
 ; (2)
 where sDt
 :=
-ÔøΩÔøΩ
+É∞
 i
 nD
 t;i and C is a constant. Discounted UCB incrementally
@@ -187,13 +188,13 @@ result of the t-th playout (0 or 1 in this paper for the sake of simplicity)
 at j if j is selected, or 0 if j is not selected. We assume rD
 0;j = nD
 0;j = 0
-5 Precisely, Kocsis and SzepesvÔøΩLari used the UCB1-Tuned formula [10] to define the
+5 Precisely, Kocsis and SzepesvÅLari used the UCB1-Tuned formula [10] to define the
 Discounted UCB algorithm. However, we use the standard UCB1 formula here, since
 we believe that this difference does not affect the properties of Discounted UCB.
 for any j but ducb0;j has a very large value so that j can be selected at
 least once. Note that Discounted UCB is identical to UCB if  = 1:0.
 Additionally, selecting the right  plays an important role in Discounted
-UCBÔøΩfs performance.
+UCBÅfs performance.
 Discounted UCB selects branch j with the largest discounted UCB value
 and performs a playout at j, and then updates the discounted UCB
 values of all the branches. In other words, while Discounted UCB updates
@@ -204,7 +205,7 @@ While Discounted UCB could be applied to tree search in a similar manner
 to UCT, one issue must be addressed (see Subsection 5.1 for details)
 and no success in combining Discounted UCB with tree search has been
 reported yet.
-Ramanujan and SelmanÔøΩfs UCTMAXH combines UCT and minimax tree
+Ramanujan and SelmanÅfs UCTMAXH combines UCT and minimax tree
 search [16]. It simply replaces performing a playout with calling an evaluation
 function at each leaf and backs up its minimax value instead of the
 mean value. Although they showed that UCTMAXH outperforms UCT
@@ -213,7 +214,7 @@ limited to domains where both minimax search and UCT perform well.
 Other related work includes approaches using other algorithms as baselines
 rather than UCT and their applicability to UCT remains an open
 question. For example, instead of computing the winning ratio, Coulom
-introduced the ÔøΩgMixÔøΩh operator that is a linear combination of robust
+introduced the ÅgMixÅh operator that is a linear combination of robust
 max and mean [6].
 4 Accelerated UCT
 Our Accelerated UCT algorithm aims at accelerating to search in a direction
@@ -227,7 +228,7 @@ Accelerated UCB value from the root until reaching a leaf. The Accelerated
 UCB value aucbj for move j is defined as:
 aucbj := rA
 j + C
-ÔøΩÔøΩ
+Å„
 log s
 nj
 ; (5)
@@ -251,13 +252,13 @@ velocity-based weighted sum of rA
 j :
 rA
 i :=
-ÔøΩÔøΩ
-jÔøΩÔøΩLM(P)
+É∞
+jÅ∏LM(P)
 wj  rA
 j ; (7)
 where LM(P) is all the legal moves at P and wj := vt;j=(
-ÔøΩÔøΩ
-kÔøΩÔøΩLM(P)
+É∞
+kÅ∏LM(P)
 vt;k).
 If move j is selected, vt;j and wj are increased, resulting in giving rA
 j
@@ -268,13 +269,13 @@ When a leaf is expanded after performing several playouts, Accelerated
 UCT must consider a way of reusing these playout results. We prepare
 an additional child called virtual child for this purpose.
 Fig. 2 illustrates the virtual child of node a, represented as a
-ÔøΩÔøΩ
+Åå
 . Nodes
 a, b and c are leaves in the left figure. Assume that three playouts are
 performed at a and the winning ratio of move r ! a is 2=3. Then, if
 a is expanded, Accelerated UCT generates two real children (i.e., d and
 e) and one virtual child a
-ÔøΩÔøΩ
+Åå
 as shown in the right figure. Additionally,
 assume that one playout per real child is performed (the playout results
 are a win at d and a loss at e).
@@ -282,26 +283,26 @@ In case of plain UCT, the winning ratio of r ! a can be easily calculated
 as 3=5 in this situation, because the playout results previously performed
 at a (i.e.,the winning ratio of 2=3) are accumulated at r ! a. However,
 Accelerated UCB updates the accelerated winning ratio rA
-rÔøΩÔøΩa of r ! a
+rÅ®a of r ! a
 based on the winning ratios of a ! d and a ! e in the original definition.
 These moves do not include the value of 2=3.We therefore add one virtual
 child a
-ÔøΩÔøΩ
+Åå
 and (virtual) move a ! a
-ÔøΩÔøΩ
+Åå
 to set the winning ratio of a ! a
-ÔøΩÔøΩ
+Åå
 to
 2=3. That is, as if there were three moves (a ! a
-ÔøΩÔøΩ
+Åå
 , a ! d and a ! e) at
 a, Accelerated UCT updates rA
-rÔøΩÔøΩa.
+rÅ®a.
 Note that the velocity of a
-ÔøΩÔøΩ
+Åå
 is also considered but is always decayed
 because a
-ÔøΩÔøΩ
+Åå
 is never selected.
 5 Experiments
 5.1 Implementation Details
@@ -316,7 +317,7 @@ to update all the Discounted UCB values in the currently built tree. However,
 because this approach obviously incurs non-negligible overhead, our
 implementation updates the Discount UCB values in the same way as
 Accelerated UCT updates velocities. In this way, our Discounted UCT
-implementation can recompute the Discounted UCB values of ÔøΩgimportantÔøΩh
+implementation can recompute the Discounted UCB values of ÅgimportantÅh
 moves with a small overhead.
 5.2 Setup
 Experiments were performed on a dual hexa-core Xeon X5680 machine
@@ -359,7 +360,7 @@ and Accelerated UCT Algorithms
 Table 1 shows the winning percentages of Accelerated/Discounted UCT
 with various decays against plain UCT in Othello, Havannah and 99 Go
 with 95% confidence intervals, calculated by 2
-ÔøΩÔøΩ
+Å„
 p(100 ?? p)=1000, where
 p is the winning percentage. The best results are marked by bold text.
 We varied decay  = 1 ?? 0:1k (1  k  7) for both Discounted and
@@ -367,7 +368,7 @@ Accelerated UCT. For example,  = 0:9999999 with k = 7 and  = 0:9
 with k = 1. This implies that  becomes close to 1 more extremely
 with larger k, resulting in Discounted/Accelerated UCT behaving more
 similarly to plain UCT.
-FuegoÔøΩfs default policy that performs a smarter playout based on gamedependent
+FuegoÅfs default policy that performs a smarter playout based on gamedependent
 knowledge was used in the experiments in Go. Additionally
 other important enhancements except Rapid Action Value Estimate
 (RAVE)7 [9] were turned on there. In contrast, in Havannah and Othello,
@@ -395,7 +396,7 @@ we did not exploit the best C for plain and Accelerated UCT either.
 Moreover, we verified that the values of the biased terms of Discounted
 and Accelerated UCT with the best  were very similar when we ran
 these algorithms with many positions.
-Despite inclusions of FuegoÔøΩfs essential enhancements to improve its
+Despite inclusions of FuegoÅfs essential enhancements to improve its
 playing strength except RAVE, Accelerated UCT still achieved nonnegligible
 improvement. Additionally even if no enhancements were incorporated
 in Othello and Havannah, Accelerated UCT was better than
@@ -505,7 +506,7 @@ depends on the time limit, it would be necessary for Accelerated UCT
 to automatically change the value of , based on a few factors such as
 the shape of the current search tree.
 Acknowledgements. This research was supported by the JST PRESTO
-program. We thank Tomoyuki Kaneko and Martin MÔøΩNuller for their valuable
+program. We thank Tomoyuki Kaneko and Martin MÅNuller for their valuable
 comments on the paper.
 References
 1. P. Auer, N. Cesa-Bianchi, and P. Fischer. Finite-time analysis of the
@@ -515,7 +516,7 @@ multiarmed bandit problem. Machine Learning, 47(2?3):235?256,
 Proc. of the 10th International Conference on Advances in Com-
 puter Games, (ACG10), volume 263 of International Federation for
 Information Processing, pages 159?174. Kluwer Academic, 2003.
-3. B. BrÔøΩNugmann. Monte Carlo Go. 1993. http://www.ideanest.com/
+3. B. BrÅNugmann. Monte Carlo Go. 1993. http://www.ideanest.com/
 vegos/MonteCarloGo.pdf.
 4. P.-A. Coquelin and R. Munos. Bandit algorithms for tree search.
 In Proc. of the 23rd Conference on Uncertainty in Articial Intelli-
@@ -526,7 +527,7 @@ Go. ICGA Journal, 30(4):198?208, 2007.
 Carlo tree search. In Proc. of the 5th International Conference on
 Computers and Games, (CG2006), volume 4630 of Lecture Notes in
 Computer Science, pages 72?83. Springer, 2007.
-7. M. Enzenberger, M. MÔøΩNuller, B. Arneson, and R. Segal. Fuego -
+7. M. Enzenberger, M. MÅNuller, B. Arneson, and R. Segal. Fuego -
 an open-source framework for board games and Go engine based
 on Monte-Carlo tree search. IEEE Transactions on Computational
 Intelligence and AI in Games, 2(4):259?270, 2010.
@@ -548,11 +549,11 @@ in Computer Science, pages 81?92. Springer, 2010.
 in Amazons endgames. In Proc. of the IEEE Symposium on Compu-
 tational Intelligence and Games, (CIG2008), pages 378?384. IEEE
 Press, 2008.
-13. L. Kocsis and C. SzepesvÔøΩLari. Bandit based Monte-Carlo planning.
+13. L. Kocsis and C. SzepesvÅLari. Bandit based Monte-Carlo planning.
 In Proc. of the 17th European Conference on Machine Learning,
 (ECML2006), volume 4212 of Lecture Notes in Computer Science,
 pages 282?293. Springer, 2006.
-14. L. Kocsis and C. SzepesvÔøΩLari. Discounted UCB. Video Lecture,
+14. L. Kocsis and C. SzepesvÅLari. Discounted UCB. Video Lecture,
 2006. In the lectures of PASCAL Second Challenges Workshop
 2006, Slides are available at http://www.lri.fr/?sebag/Slides/
 Venice/Kocsis.pdf. Video is available at http://videolectures.
@@ -575,7 +576,7 @@ Machine Learning, 3(1):9?44, 1988.
 for Havannah. In Proc. of the International Conference on
 12th Advances in Computer Games, (ACG12), volume 6048 of Lec-
 ture Notes in Computer Science, pages 65?74. Springer, 2009.
-20. D. Tom and M. MÔøΩNuller. A study of UCT and its enhancements in
+20. D. Tom and M. MÅNuller. A study of UCT and its enhancements in
 an artificial game. In Proc. of the 12th International Conference on
 Advances in Computer Games, (ACG12), volume 6048 of Lecture
 Notes in Computer Science, pages 55?64. Springer, 2009.

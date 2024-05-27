@@ -1,0 +1,41 @@
+{% extends "app_analysis/base.html" %}
+{% block content %}
+
+    <ul>
+            {% if results %}
+                <table>
+                    <tr>
+                        <th>Word</th>
+                        <th>Count</th>
+                        <th>File</th>
+                    </tr>
+                    {% for freq_word in results %}
+                        <tr>
+                            <td>{{ freq_word.word }}</td>
+                            <td>{{ freq_word.count }}</td>
+                            <td>{{ freq_word.relate_file.name }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+        
+                <div class="pagination">
+                    <span class="step-links">
+                        {% if results.has_previous %}
+                            <a href="?page=1">&laquo; first</a>
+                            <a href="?page={{ results.previous_page_number }}">previous</a>
+                        {% endif %}
+        
+                        <span class="current">
+                            Page {{ results.number }} of {{ results.paginator.num_pages }}.
+                        </span>
+        
+                        {% if results.has_next %}
+                            <a href="?page={{ results.next_page_number }}">next</a>
+                            <a href="?page={{ results.paginator.num_pages }}">last &raquo;</a>
+                        {% endif %}
+                    </span>
+                </div>
+            {% endif %}
+        
+            </ul>
+{% endblock %}

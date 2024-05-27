@@ -27,6 +27,13 @@ class SelectedFile(models.Model):
     def __str__(self):
         return self.name
 
+class FreqWord(models.Model):
+    relate_file = models.ForeignKey(FileModel, on_delete=models.CASCADE, related_name='frequent_words')
+    word = models.CharField(max_length=255)
+    count = models.IntegerField()
+    def __str__(self):
+        return f"{self.word}: {self.count}"
+
 
 
 

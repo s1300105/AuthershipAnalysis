@@ -1,4 +1,4 @@
-from django.forms import CheckboxSelectMultiple
+from django.forms import CheckboxSelectMultiple,RadioSelect
 from django.forms import ModelForm
 from .models import FileModel, SelectedFile
 
@@ -17,4 +17,12 @@ class SelectedFileForm(ModelForm):
         widgets = {
             "files" : CheckboxSelectMultiple,
         }
-   
+
+class SelectedQForm(ModelForm):
+    class Meta:
+        model = SelectedFile
+        fields = ['files']
+        widgets = {
+            "files" : CheckboxSelectMultiple,
+        }
+
