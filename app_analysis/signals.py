@@ -5,6 +5,11 @@ from app_analysis.models import FileModel,FreqWord
 
 import nltk
 import re
+from nltk.corpus import stopwords
+nltk.download('stopwords')
+stop_words = stopwords.words('english')
+
+
 
 @receiver(post_save, sender=FileModel)
 def create_frequent_words(sender, instance, created, **kwargs):
@@ -15,8 +20,13 @@ def create_frequent_words(sender, instance, created, **kwargs):
             raw = file.read()
         raw = re.sub("[^a-zA-Z]", " ", raw)
         tokens = nltk.word_tokenize(raw)
-        text = nltk.Text(tokens)
-        tokens_l = [w.lower() for w in tokens] #全小文字
+        tokens_l = [w.lower() for w in tokens] # all lower case 
+        for word in stop_words:
+            tokens_l.remove(word) # remove stopwords
+        for i, w in enumerate(tokens_l):
+            if len(w) == 1:
+                del_w = tokens_l.pop(i) # delete 1 charactor token
+
         fdist = nltk.FreqDist(tokens_l)
         for word,count in fdist.items():
             FreqWord.objects.create(relate_file=instance, word=word, count=count)
