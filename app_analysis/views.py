@@ -53,7 +53,7 @@ def keyword(request):
     
     if request.method == 'POST':
         print("request is POSTed")
-        form = SelectedFileForm(request.POST, request.FILES);
+        form = SelectedFileForm(request.POST, request.FILES)
         
         if form.is_valid():
             
@@ -142,34 +142,30 @@ def qvsk_analysis(request):
     word_group = {}
     max_word = 0
     selected_files = form
-    file_id = [file.id for file in selected_files]
 
-    selected_files = FileModel.objects.filter(id__in=file_id)    
-    freq_words = FreqWord.objects.filter(relate_file__in=selected_files).order_by('-count') #countの逆
-
-#    for file in selected_files:
-        #freq_words = FreqWord.objects.filter(relate_file__in=file).order_by('-count') #countの逆 
-#        freq_words = list(file.frequent_words.order_by('-count'))
-#        word_group[file.name] = freq_words
-#        max_word = max(max_word,len(freq_words))
+    for file in selected_files:
+        freq_words = list(FreqWord.objects.filter(relate_file__id=file.id).order_by('-count'))
+        word_group[file.name] = freq_words
+        max_word = max(max_word,len(freq_words))
     
-#    group_index = []
-#    for i in range(max_word):
-#        row = []
-#        for file_name in word_group:
-#            if i < len(word_group[file_name]):
-#                row.append(word_group[file_name][i])
-#            else:
-#                row.append(None)
-#        group_index.append(row)
+    group_index = []
+    for i in range(max_word):
+        row = []
+        for file_name in word_group:
+            if i < len(word_group[file_name]):
+                row.append(word_group[file_name][i])
+            else:
+                row.append(None)
+        group_index.append(row)
 
-    #print("test"+str(max_word))
-    paginator = Paginator(freq_words, 20)  
+    paginator = Paginator(group_index, 20)  
     page_number = request.GET.get('page', 1)
     results = paginator.get_page(page_number)
-
+    filename = [file.name for file in selected_files]
+    print(filename)
     context = {
         "results" : results,
-        "selected_files" : selected_files,
+        "filename" : filename,
+        
     }
-    return  render(request, "app_analysis/qvsk_analysis.html", {"results":results})
+    return  render(request, "app_analysis/qvsk_analysis.html", context)

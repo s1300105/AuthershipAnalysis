@@ -1,22 +1,49 @@
 {% extends "app_analysis/base.html" %}
 {% block content %}
 
+<style>
+    table {
+        th,td {
+            text-align: center;
+            padding: 2px;
+            width: 100px;
+        }
+        .table-container {
+            width: 100%;
+            overflow-x: auto;
+        }
+    }
+</style>
+
+
     <ul>
-            {% if results %}
-                <table>
+        <div class="table-container">
+            <table border="1">
+                <thead>
                     <tr>
-                        <th>Word</th>
-                        <th>Count</th>
-                        <th>File</th>
+                        {% for file in filename %}
+                            <th> {{ file }} Word </th>
+                            <th> {{ file }} Count </th>
+                        {% endfor %}
                     </tr>
-                    {% for freq_word in results %}
+                </thead>
+                <tbody>
+                    {% for row in results %}
                         <tr>
-                            <td>{{ freq_word.word }}</td>
-                            <td>{{ freq_word.count }}</td>
-                            <td>{{ freq_word.relate_file.name }}</td>
+                            {% for word in row %}
+                                    {% if word %}
+                                        <th> {{ word.word }} </th>
+                                        <th> {{ word.count }} </th>
+                                    {% else %}
+                                        <th>-</th>
+                                        <th>-</th>
+                                    {% endif %}
+                            {% endfor %}
                         </tr>
                     {% endfor %}
-                </table>
+                </tbody>
+            </table>
+        </div>
         
                 <div class="pagination">
                     <span class="step-links">
@@ -35,7 +62,6 @@
                         {% endif %}
                     </span>
                 </div>
-            {% endif %}
         
             </ul>
 {% endblock %}
