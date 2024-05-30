@@ -169,3 +169,30 @@ def qvsk_analysis(request):
         
     }
     return  render(request, "app_analysis/qvsk_analysis.html", context)
+
+
+
+def loglikelihood(f1, f2, n1, n2):
+    E1 = n1 * (f1 + f2) / (n1 + n2)
+    E2 = n2 * (f1 + f2) / (n1 + n2)
+    G2 = 2 * ((f1 * math.log(f1 / E1) if f1 > 0 else 0) + (f2 * math.log(f2 / E2) if f2 > 0 else 0))
+    return G2
+
+#reference_freq and target_freq are dict. index is word, value is freq.
+def cal_llAndodds(request, eference_freq, target_freq):
+    total_reference = sum(reference_freq.values())
+    total_target = sum(target_freq.values())
+
+    results = []
+    for word in target_freq:
+        ref_count = reference_freq[word]
+        target_count = target_freq[word]
+        ll = loglikelihood(target_count, ref_count, total_target, total_reference)
+        odds_ratio = (target_count / total_target) / (ref_count / total_reference) if ref_count > 0 else float('inf')
+        results.append((word, target_count, ref_count, ll, odds_ratio))
+
+    results.sort(key=lambda x: x[3], reverse=True)
+    context = {
+        "results" : results
+    }
+    return render(request, "app_analysis/displayLLandOdds.html", context)
