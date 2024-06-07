@@ -1,0 +1,124 @@
+ This
+driver supplies 3 channels PCM audio playbacks It synthesizes some PCM data on the
+fly so that some PCM channels can be played through only
+one digital to analog converter called a DAC or D/A converter
+Application Interface (API) of the driver is shown in Table
+2
+Entry
+PLAY
+STOP
+FREQ
+VOL
+Function
+Start playing
+Stop playing
+Change frequency
+Change volume
+Arguments
+Number of channel,
+Top address of PCM data,
+End address of PCM data
+Number of channel
+Number of channel, Frequency
+Number of channel, Volume
+: Application Interface for the PCM driver The
+driver plays 3 PCM channels concurrently, so three instances
+of the class Channel are required
+The actions play, stop, freq pi, si, fi and vi correspond to
+play, stop, freq and vol the methods of CH,
+API
++play
++stop
++freq
++vol
++play
++stcp
++freq
++vol
++calc
+Clock
+S;nchronize
+D/A
++write
+Get data
+Write
+Synth
+Object
+API
+CH0
+CH1
+CH2
+SYN
+CLK
+DAC
+Behavior
+(play The methods
+play, stop, freq and vol mean that start playing, stop playing,
+change frequency and change volume for the corresponding
+channel For example, one of the play
+methods of the channel objects (po, P1 or p2) is called
+after the API entry PLAY(play) is called
+- CHo, CH1 and CH2 start playing, stop playing, change
+frequency, change volume or calculate their output
+value repeatedly2 reSuppose
+that X is an expression which holds (API 4
+(play In the thread API,
+play, stop, freq and vol are the external events
+8
+Name
+PLAY
+STOP
+FREQ
+VOL
+CLK
+Expression
+play
+Appendix: A part of implementation
+/* Clock Frequency (Hz) */
+#define INPUT_CLOCK 50000
+#define CH_MAX 3
+static int f[CH _MAX], v[CH_MAX];
+static short *start adr[CH MAX];
+static short *current _adr[CH_MAX];
+static short *end _adr[CH_MAX];
+static double counter[CH _MAX];
+static double counterstep[CH_MAX];
+static int playflag[CH _MAX];
+static SEMAFO sem=0;
+/* play(p_O+p_l+p_2) */
+void PLAY(int ch, short *start, short *end){
+ENTER(sem);
+playflag[ch] = 1;
+start _adr [ch] = start;
+end _adr[ch] = end;
+LEAVE(sem);
+}
+/* stop(s_0+sl+s_2) */
+void STOP (int ch) {
+ENTER(sem);
+playflag[ch] = 0;
+LEAVE(sem);
+}
+/* freqwrite */
+void CLK ( ) {
+short mix = 0;
+int i;
+for (i=0; i<3; i++)
+{
+if (playflag[i] )
+{
+/* calcurate the address counter */
+counter[i] += counter _step[i];
+if(counter[i]>=10;
+current _adr[i]++;
+}
+/*c heck the end of data */
+if(current _adr[i]==endadr[i])
+playf lag [ i ] = 0;
+mix += (*(current adr[i]) * v[i]) >> 4;
+}
+}
+/* I/O Access */
+DAC WRITE(mix);
+}
+10
