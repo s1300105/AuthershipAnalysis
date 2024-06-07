@@ -5,6 +5,8 @@ from .models import FileModel,FreqWord
 from .forms import UploadFileForm, SelectedFileForm,SelectedQForm
 from django.core.paginator import Paginator
 from django.views.generic import ListView
+from django.shortcuts import get_object_or_404
+import math
 
 def home(request):
     files = FileModel.objects.all()
@@ -140,6 +142,7 @@ def qvsk_analysis(request):
             return redirect('qvsk')
     
     word_group = {}
+    dict_group = {}
     max_word = 0
     selected_files = form
 
@@ -147,7 +150,15 @@ def qvsk_analysis(request):
         freq_words = list(FreqWord.objects.filter(relate_file__id=file.id).order_by('-count'))
         word_group[file.name] = freq_words
         max_word = max(max_word,len(freq_words))
-    
+
+        #Odd計算のメソッドでkeyが単語、valueが頻度のdict型が必要.下の４行を追加しました。
+        freq_dict = {fr.word: fr.count for fr in freq_words}
+        dict_group[file.name] = freq_dict
+    ll_val, odds_val = llAndodd(dict_group)
+    request.session['ll_val'] = ll_val
+    request.session['odds_val'] = odds_val
+
+
     group_index = []
     for i in range(max_word):
         row = []
@@ -170,6 +181,61 @@ def qvsk_analysis(request):
     }
     return  render(request, "app_analysis/qvsk_analysis.html", context)
 
+def displlAndodds(request):
+    ll_val = request.session['ll_val']
+    odds_val = request.session['odds_val']
+    if not ll_val:
+        return redirect('qvsk_analysis')
+    elif not odds_val:
+        return redirect('qvsk_analysis')
+
+    ll_page_number = request.GET.get('ll_page', 1)
+    odds_page_number = request.GET.get('odds_page', 1)
+
+    ll_list = list(ll_val.items())
+    odds_list = list(odds_val.items())
+
+    ll_paginator = Paginator(ll_list, 1)
+    odds_paginator = Paginator(odds_list, 1)
+
+    ll_results = ll_paginator.get_page(ll_page_number)
+    odds_results = odds_paginator.get_page(odds_page_number)
+
+   
+   
+    context = {
+        #"ll_val": ll_val,
+        #"odds_val": odds_val,
+        "ll_results": ll_results,
+        "odds_results": odds_results,
+    
+    }
+    return render(request, "app_analysis/displlAndodds.html", context)
+
+
+#dict_groupを計算できる形に直して、QとKのそれぞれのペアに対してcal_llAndoddsを呼び足して計算。
+def llAndodd(dict_group):
+    dict_Q = {}
+    dict_Ks = {}
+    val_ll = {}
+    val_odds = {}
+    for filename in dict_group.keys():
+        fileinstance = get_object_or_404(FileModel, name = filename)
+        if fileinstance.text_type == 'Q':
+            dict_Q[filename] = dict_group[filename]
+        elif fileinstance.text_type == 'K':
+            dict_Ks[filename] = dict_group[filename] #dict_Ks はvalueがファイルの名前、valueが単語の頻度を表す辞書の辞書
+    for q_filename, q_freqdict in dict_Q.items():
+        for k_filename, k_freqdict in dict_Ks.items():
+            ll_results, odds_results = cal_llAndodds(q_freqdict, k_freqdict)
+            val_ll[(q_filename, k_filename)] = ll_results
+            val_odds[(q_filename, k_filename)] = odds_results
+        
+    
+
+    return val_ll, val_odds
+
+
 
 
 def loglikelihood(f1, f2, n1, n2):
@@ -178,21 +244,32 @@ def loglikelihood(f1, f2, n1, n2):
     G2 = 2 * ((f1 * math.log(f1 / E1) if f1 > 0 else 0) + (f2 * math.log(f2 / E2) if f2 > 0 else 0))
     return G2
 
-#reference_freq and target_freq are dict. index is word, value is freq.
-def cal_llAndodds(request, eference_freq, target_freq):
+def Odds_Ratio(target_count, total_target, ref_count,total_reference):
+    odds_ratio = (target_count / total_target) / (ref_count / total_reference) if ref_count > 0 else float('inf')
+    return odds_ratio
+
+# logliliellihoodとoddsの計算
+# targetはQ,referenceはK
+def cal_llAndodds(target_freq,reference_freq):
     total_reference = sum(reference_freq.values())
     total_target = sum(target_freq.values())
 
-    results = []
+    llresults = []
+    oddsresults = []
     for word in target_freq:
-        ref_count = reference_freq[word]
+        if word in reference_freq:
+            ref_count = reference_freq[word]
+        else:
+            ref_count = 0
         target_count = target_freq[word]
         ll = loglikelihood(target_count, ref_count, total_target, total_reference)
-        odds_ratio = (target_count / total_target) / (ref_count / total_reference) if ref_count > 0 else float('inf')
-        results.append((word, target_count, ref_count, ll, odds_ratio))
+        odds_ratio = Odds_Ratio(target_count, total_target, ref_count, total_reference)
+        llresults.append((word, target_count, ref_count, ll, odds_ratio))
+        if not math.isinf(odds_ratio):
+            oddsresults.append((word, target_count, ref_count, ll, odds_ratio))
 
-    results.sort(key=lambda x: x[3], reverse=True)
-    context = {
-        "results" : results
-    }
-    return render(request, "app_analysis/displayLLandOdds.html", context)
+
+    llresults.sort(key=lambda x: x[3], reverse=True)
+    oddsresults.sort(key=lambda x: x[4], reverse=True)
+
+    return llresults, oddsresults

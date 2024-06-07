@@ -1,0 +1,205 @@
+{% extends "app_analysis/base.html" %}
+{% block content %}
+
+<!--
+<div style="display: flex;">
+    <div>
+        <h1><strong>Likelihood and Odds</strong></h1>
+        <h2>this is sorted depends on the value of Loglikelihood</h2>
+        <table border="3">
+            <thead>
+                <tr>
+                    <th>File Pair</th>
+                    <th>Word</th>
+                    <th>Q Count</th>
+                    <th>K Count</th>
+                    <th>Log Likelihood</th>
+                    <th>Odds Ratio</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for key, values in ll_val.items %}
+                    {% for value in values %}
+                        <tr>
+                            <td>{{ key.0 }} - {{ key.1 }}</td>
+                            <td>{{ value.0 }}</td>
+                            <td>{{ value.1 }}</td>
+                            <td>{{ value.2 }}</td>
+                            <td>{{ value.3 }}</td>
+                            <td>{{ value.4 }}</td>
+                        </tr>
+                    {% endfor %}
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div>
+        
+        <h2>this table doesn't contain the row that have the odds ration "inf", and is sorted depends on the value of Odds ratio</h2>
+        <table border="3">
+            <thead>
+                <tr>
+                    <th>File Pair</th>
+                    <th>Word</th>
+                    <th>Q Count</th>
+                    <th>K Count</th>
+                    <th>Log Likelihood</th>
+                    <th>Odds Ratio</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for key, values in odds_val.items %}
+                    {% for value in values %}
+                        <tr>
+                            <td>{{ key.0 }} - {{ key.1 }}</td>
+                            <td>{{ value.0 }}</td>
+                            <td>{{ value.1 }}</td>
+                            <td>{{ value.2 }}</td>
+                            <td>{{ value.3 }}</td>
+                            <td>{{ value.4 }}</td>
+                        </tr>
+                    {% endfor %}
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+-->
+
+
+<div style="display: flex;">
+    <div>
+        <h1><strong>Likelihood and Odds</strong></h1>
+        <h2>This is sorted depending on the value of Loglikelihood</h2>
+        <div class="pagination">
+            <span class="step-links">
+                {% if ll_results.has_previous %}
+                    <a href="?ll_page=1">&laquo; first</a>
+                    <a href="?ll_page={{ ll_results.previous_page_number }}">previous</a>
+                {% endif %}
+
+                <span class="current">
+                    Page {{ ll_results.number }} of {{ ll_results.paginator.num_pages }}.
+                </span>
+
+                {% if ll_results.has_next %}
+                    <a href="?ll_page={{ ll_results.next_page_number }}">next</a>
+                    <a href="?ll_page={{ ll_results.paginator.num_pages }}">last &raquo;</a>
+                {% endif %}
+            </span>
+        </div>
+        <table border="3">
+            <thead>
+                <tr>
+                    <th>File Pair</th>
+                    <th>Word</th>
+                    <th>Q Count</th>
+                    <th>K Count</th>
+                    <th>Log Likelihood</th>
+                    <th>Odds Ratio</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for key, values in ll_results %}
+                    {% for value in values %}
+                        <tr>
+                            <td>{{ key.0 }} - {{ key.1 }}</td>
+                            <td>{{ value.0 }}</td>
+                            <td>{{ value.1 }}</td>
+                            <td>{{ value.2 }}</td>
+                            <td>{{ value.3 }}</td>
+                            <td>{{ value.4 }}</td>
+                        </tr>
+                    {% endfor %}
+                {% endfor %}
+            </tbody>
+        </table>
+        <div class="pagination">
+            <span class="step-links">
+                {% if ll_results.has_previous %}
+                    <a href="?ll_page=1">&laquo; first</a>
+                    <a href="?ll_page={{ ll_results.previous_page_number }}">previous</a>
+                {% endif %}
+
+                <span class="current">
+                    Page {{ ll_results.number }} of {{ ll_results.paginator.num_pages }}.
+                </span>
+
+                {% if ll_results.has_next %}
+                    <a href="?ll_page={{ ll_results.next_page_number }}">next</a>
+                    <a href="?ll_page={{ ll_results.paginator.num_pages }}">last &raquo;</a>
+                {% endif %}
+            </span>
+        </div>
+    </div>
+
+    <div>
+        <h2>This table doesn't contain the row that has the odds ratio "inf", and is sorted depending on the value of Odds ratio</h2>
+        <div class="pagination">
+            <span class="step-links">
+                {% if odds_results.has_previous %}
+                    <a href="?odds_page=1">&laquo; first</a>
+                    <a href="?odds_page={{ odds_results.previous_page_number }}">previous</a>
+                {% endif %}
+
+                <span class="current">
+                    Page {{ odds_results.number }} of {{ odds_results.paginator.num_pages }}.
+                </span>
+
+                {% if odds_results.has_next %}
+                    <a href="?odds_page={{ odds_results.next_page_number }}">next</a>
+                    <a href="?odds_page={{ odds_results.paginator.num_pages }}">last &raquo;</a>
+                {% endif %}
+            </span>
+        </div>
+        <table border="3">
+            <thead>
+                <tr>
+                    <th>File Pair</th>
+                    <th>Word</th>
+                    <th>Q Count</th>
+                    <th>K Count</th>
+                    <th>Log Likelihood</th>
+                    <th>Odds Ratio</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for key, values in odds_results %}
+                    {% for value in values %}
+                        <tr>
+                            <td>{{ key.0 }} - {{ key.1 }}</td>
+                            <td>{{ value.0 }}</td>
+                            <td>{{ value.1 }}</td>
+                            <td>{{ value.2 }}</td>
+                            <td>{{ value.3 }}</td>
+                            <td>{{ value.4 }}</td>
+                        </tr>
+                    {% endfor %}
+                {% endfor %}
+            </tbody>
+        </table>
+        <div class="pagination">
+            <span class="step-links">
+                {% if odds_results.has_previous %}
+                    <a href="?odds_page=1">&laquo; first</a>
+                    <a href="?odds_page={{ odds_results.previous_page_number }}">previous</a>
+                {% endif %}
+
+                <span class="current">
+                    Page {{ odds_results.number }} of {{ odds_results.paginator.num_pages }}.
+                </span>
+
+                {% if odds_results.has_next %}
+                    <a href="?odds_page={{ odds_results.next_page_number }}">next</a>
+                    <a href="?odds_page={{ odds_results.paginator.num_pages }}">last &raquo;</a>
+                {% endif %}
+            </span>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
+
+
