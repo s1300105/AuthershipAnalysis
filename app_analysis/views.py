@@ -216,17 +216,17 @@ def displlAndodds(request):
 #dict_groupを計算できる形に直して、QとKのそれぞれのペアに対してcal_llAndoddsを呼び足して計算。
 def llAndodd(dict_group):
     dict_Q = {}
-    dict_Ks = {}
+    dict_KR = {}
     val_ll = {}
     val_odds = {}
     for filename in dict_group.keys():
         fileinstance = get_object_or_404(FileModel, name = filename)
         if fileinstance.text_type == 'Q':
             dict_Q[filename] = dict_group[filename]
-        elif fileinstance.text_type == 'K':
-            dict_Ks[filename] = dict_group[filename] #dict_Ks はvalueがファイルの名前、valueが単語の頻度を表す辞書の辞書
+        else :
+            dict_KR[filename] = dict_group[filename] #dict_KR はvalueがファイルの名前、valueが単語の頻度を表す辞書の辞書
     for q_filename, q_freqdict in dict_Q.items():
-        for k_filename, k_freqdict in dict_Ks.items():
+        for k_filename, k_freqdict in dict_KR.items():
             ll_results, odds_results = cal_llAndodds(q_freqdict, k_freqdict)
             val_ll[(q_filename, k_filename)] = ll_results
             val_odds[(q_filename, k_filename)] = odds_results

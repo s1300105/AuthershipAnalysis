@@ -1,71 +1,7 @@
 {% extends "app_analysis/base.html" %}
 {% block content %}
 
-<!--
-<div style="display: flex;">
-    <div>
-        <h1><strong>Likelihood and Odds</strong></h1>
-        <h2>this is sorted depends on the value of Loglikelihood</h2>
-        <table border="3">
-            <thead>
-                <tr>
-                    <th>File Pair</th>
-                    <th>Word</th>
-                    <th>Q Count</th>
-                    <th>K Count</th>
-                    <th>Log Likelihood</th>
-                    <th>Odds Ratio</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for key, values in ll_val.items %}
-                    {% for value in values %}
-                        <tr>
-                            <td>{{ key.0 }} - {{ key.1 }}</td>
-                            <td>{{ value.0 }}</td>
-                            <td>{{ value.1 }}</td>
-                            <td>{{ value.2 }}</td>
-                            <td>{{ value.3 }}</td>
-                            <td>{{ value.4 }}</td>
-                        </tr>
-                    {% endfor %}
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
 
-    <div>
-        
-        <h2>this table doesn't contain the row that have the odds ration "inf", and is sorted depends on the value of Odds ratio</h2>
-        <table border="3">
-            <thead>
-                <tr>
-                    <th>File Pair</th>
-                    <th>Word</th>
-                    <th>Q Count</th>
-                    <th>K Count</th>
-                    <th>Log Likelihood</th>
-                    <th>Odds Ratio</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for key, values in odds_val.items %}
-                    {% for value in values %}
-                        <tr>
-                            <td>{{ key.0 }} - {{ key.1 }}</td>
-                            <td>{{ value.0 }}</td>
-                            <td>{{ value.1 }}</td>
-                            <td>{{ value.2 }}</td>
-                            <td>{{ value.3 }}</td>
-                            <td>{{ value.4 }}</td>
-                        </tr>
-                    {% endfor %}
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
-</div>
--->
 
 
 <div style="display: flex;">
@@ -94,8 +30,8 @@
                 <tr>
                     <th>File Pair</th>
                     <th>Word</th>
-                    <th>Q Count</th>
-                    <th>K Count</th>
+                    <th>Target Count</th>
+                    <th>Reference Count</th>
                     <th>Log Likelihood</th>
                     <th>Odds Ratio</th>
                 </tr>
@@ -158,8 +94,8 @@
                 <tr>
                     <th>File Pair</th>
                     <th>Word</th>
-                    <th>Q Count</th>
-                    <th>K Count</th>
+                    <th>Target Count</th>
+                    <th>Reference Count</th>
                     <th>Log Likelihood</th>
                     <th>Odds Ratio</th>
                 </tr>
