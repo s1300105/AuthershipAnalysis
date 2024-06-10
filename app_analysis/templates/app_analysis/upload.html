@@ -1,12 +1,17 @@
 {% extends "app_analysis/base.html" %}
+
 {% block content %}
-
-<div>
-    <form method = "POST" action="" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{form.as_p}}
-        <input type="submit" value="Submit" />
-    </form>
- </div>
-
+<section class="section">
+    <div class="container has-text-centered mt-5">
+        <form method="POST" action="" enctype="multipart/form-data" class="card p-4">
+            {% csrf_token %}
+            <div>
+                {{ form.as_p }}
+            </div>
+            <div class="buttons mt-4 is-centered">
+                <input type="submit" value="Submit" class="button is-primary" />
+            </div>
+        </form>
+    </div>
+</section>
 {% endblock %}

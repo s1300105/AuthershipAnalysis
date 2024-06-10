@@ -1,71 +1,97 @@
 {% extends "app_analysis/base.html" %}
 {% block content %}
 
+<div class="container mt-5">
+    <div class="has-text-centered mb-5">
+        <a href="{% url 'displlAndodds' %}" class="button is-link">Display Loglikelihood and Odds</a>
+    </div>
 
-<a href="{% url 'displlAndodds' %}">Diplay loglikelihood and odds</a>
-
-<style>
-    table {
-        th,td {
-            text-align: center;
-            padding: 2px;
-            width: 100px;
-        }
+    <style>
         .table-container {
             width: 100%;
             overflow-x: auto;
+            margin-bottom: 2rem;
+            background-color: #fff;
+            padding: 1rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
-    }
-</style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            text-align: center;
+            padding: 1rem;
+            border: 1px solid #ddd;
+        }
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+        .pagination .step-links a {
+            margin: 0 5px;
+            padding: 0.5rem 1rem;
+            background-color: #3273dc;
+            color: #fff;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+        .pagination .step-links .current {
+            margin: 0 5px;
+            padding: 0.5rem 1rem;
+            background-color: #3273dc;
+            color: #fff;
+            border-radius: 5px;
+        }
+    </style>
 
-
-    <ul>
-        <div class="table-container">
-            <table border="1">
-                <thead>
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    {% for file in filename %}
+                        <th> {{ file }} Word </th>
+                        <th> {{ file }} Count </th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in results %}
                     <tr>
-                        {% for file in filename %}
-                            <th> {{ file }} Word </th>
-                            <th> {{ file }} Count </th>
+                        {% for word in row %}
+                            {% if word %}
+                                <td> {{ word.word }} </td>
+                                <td> {{ word.count }} </td>
+                            {% else %}
+                                <td>-</td>
+                                <td>-</td>
+                            {% endif %}
                         {% endfor %}
                     </tr>
-                </thead>
-                <tbody>
-                    {% for row in results %}
-                        <tr>
-                            {% for word in row %}
-                                    {% if word %}
-                                        <th> {{ word.word }} </th>
-                                        <th> {{ word.count }} </th>
-                                    {% else %}
-                                        <th>-</th>
-                                        <th>-</th>
-                                    {% endif %}
-                            {% endfor %}
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-        
-                <div class="pagination">
-                    <span class="step-links">
-                        {% if results.has_previous %}
-                            <a href="?page=1">&laquo; first</a>
-                            <a href="?page={{ results.previous_page_number }}">previous</a>
-                        {% endif %}
-        
-                        <span class="current">
-                            Page {{ results.number }} of {{ results.paginator.num_pages }}.
-                        </span>
-        
-                        {% if results.has_next %}
-                            <a href="?page={{ results.next_page_number }}">next</a>
-                            <a href="?page={{ results.paginator.num_pages }}">last &raquo;</a>
-                        {% endif %}
-                    </span>
-                </div>
-        
-            </ul>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    
+    <div class="pagination">
+        <span class="step-links">
+            {% if results.has_previous %}
+                <a href="?page=1">&laquo; first</a>
+                <a href="?page={{ results.previous_page_number }}">previous</a>
+            {% endif %}
+
+            <span class="current">
+                Page {{ results.number }} of {{ results.paginator.num_pages }}.
+            </span>
+
+            {% if results.has_next %}
+                <a href="?page={{ results.next_page_number }}">next</a>
+                <a href="?page={{ results.paginator.num_pages }}">last &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+</div>
 
 {% endblock %}

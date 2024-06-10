@@ -1,27 +1,90 @@
-
-{% load static %}
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>{% block title %}File Management{% endblock %}</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css">
-     <link rel="icon" href="{% static 'favicon.ico' %}">
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            background-image: url('https://user0514.cdnw.net/shared/img/thumb/elly20160628465420_TP_V.jpg');
+            background-size: auto; /* Auto to allow repeat */
+            background-position: center;
+            background-repeat: repeat; /* Ensure repeat is set */
+        }
+        body {
+            display: flex;
+            flex-direction: column;
+        }
+        .navbar {
+            width: 100%;
+            background: rgba(255, 0, 0, 0.8);
+        }
+        .content {
+            flex-grow: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            padding: 2rem 0;
+        }
+        .section {
+            width: 100%;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .navbar-brand {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+        }
+        .navbar-item {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: white;
+        }
+        .footer {
+            width: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 1rem 0;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
     <nav class="navbar is-danger">
         <div class="navbar-brand">
-            <a href="/" class="navbar-item">
-                <strong>AuthorshipAnalysis</strong>
+            <a href="/home/" class="navbar-item">
+                AuthorshipAnalysis
             </a>
         </div>
     </nav>
 
-    
-    <br>
-
-    <section class="section">
-        <div class="container">{% block content %} {% endblock %}</div>
+    <section class="section content">
+        <div class="container">
+            {% block content %}
+            {% endblock %}
+        </div>
     </section>
+
+    <footer class="footer">
+        <div>
+            <p>チーム名：No Name</p>
+            <p>ID1: s1300105 名前：Yudai</p>
+            <p>ID2: s1290143 名前：Mana Fukuda</p>
+            <p>ID3: s1270160 名前：Midori Takeshima</p>
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

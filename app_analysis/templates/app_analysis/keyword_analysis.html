@@ -1,25 +1,30 @@
 {% extends "app_analysis/base.html" %}
+
 {% block content %}
-
-    <ul>
-        <strong>KeyWord is "{{ keyword }}"</strong>
-        <br>
-        <hr>
-        {% for file_name, sentences in partOfsentence.items %}
-            <li><strong>{{ file_name }}</strong></li>
-            <br>
-            {% for sentence in sentences %}
-                {% for word in sentence %}
-                    {% if word == keyword %}
-                        <strong><span style="color: red;">{{ word }}</span></strong>
-                    {% else %}
-                        {{ word }}
-                    {% endif %}
-                {% endfor %}
+<section class="section">
+    <div class="container has-text-centered mt-5">
+        <div class="box">
+            <ul>
+                <strong>Keyword is "{{ keyword }}"</strong>
                 <br>
-            {% endfor %}
-            <hr>
-        {% endfor %}
-    </ul>
-
+                <hr>
+                {% for file_name, sentences in partOfsentence.items %}
+                    <li><strong>{{ file_name }}</strong></li>
+                    <br>
+                    {% for sentence in sentences %}
+                        {% for word in sentence %}
+                            {% if word == keyword %}
+                                <strong><span style="color: red;">{{ word }}</span></strong>
+                            {% else %}
+                                {{ word }}
+                            {% endif %}
+                        {% endfor %}
+                        <br>
+                    {% endfor %}
+                    <hr>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</section>
 {% endblock %}

@@ -1,22 +1,32 @@
 {% extends "app_analysis/base.html" %}
+
 {% block content %}
-<a href="{% url 'upload' %}">upload file</a>
-<br>
-<a href="{% url 'keyword' %}">Keyword Analysis</a>
-<br>
-<a href="{% url 'qvsk' %}">comparison tab - Q vs K</a>
-{% for file in files %}
-<hr />
-<div class="post block">
-    <h2 class="subtitle">{{file.name}}</h2>
-    <small>Uploaded at {{file.date}}</small>
-    <br>
-    <a href="{% url 'file_detail' file.id %}">detail</a>
-    <br>
-    <a href="{% url 'updatefile' file.id%}">Update</a>
-    <br>
-    <a href="{% url 'delete-file' file.id%}">Delete</a>
-    <hr />
-</div>
-{% endfor %}
+<section class="section">
+    <div class="container has-text-centered mt-5">
+        <div class="card p-2">
+            <div class="buttons is-centered mt-5 mb-5">
+                <a href="{% url 'upload' %}" class="button is-primary is-large">Upload File</a>
+                <a href="{% url 'keyword' %}" class="button is-link is-large">Keyword Analysis</a>
+                <a href="{% url 'qvsk' %}" class="button is-info is-large">Comparison tab - Q vs K</a>
+            </div>
+        </div>
+        <div class="columns is-centered">
+            <div class="column is-half">
+                {% for file in files %}
+                <hr />
+                <div class="post block" style="background-color: #fff; border-radius: 5px; padding: 15px; margin-bottom: 20px;">
+                    <h2 class="subtitle">{{file.name}}</h2>
+                    <small>Uploaded at {{file.date}}</small>
+                    <br>
+                    <div class="buttons is-centered mt-3">
+                        <a href="{% url 'file_detail' file.id %}" class="button is-info is-small">Detail</a>
+                        <a href="{% url 'updatefile' file.id%}" class="button is-warning is-small">Update</a>
+                        <a href="{% url 'delete-file' file.id%}" class="button is-danger is-small">Delete</a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
 {% endblock %}

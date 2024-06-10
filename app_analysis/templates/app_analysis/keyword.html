@@ -1,14 +1,13 @@
 {% extends "app_analysis/base.html" %}
+
 {% block content %}
-
-<div>
-    <form method = "POST" action="">
-        {% csrf_token %}
-        {{form.as_p}}
-        <input type="submit" value="Submit" />
-    </form>
- </div>
-
+<div class="container mt-5">
+    <div class="box">
+        <form method="POST" action="">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Submit" class="button is-primary mt-4">
+        </form>
+    </div>
+</div>
 {% endblock %}
-
-

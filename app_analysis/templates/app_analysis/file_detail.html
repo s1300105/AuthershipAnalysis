@@ -1,14 +1,17 @@
 {% extends "app_analysis/base.html" %}
+
 {% block content %}
-
-
-<h1 class="title">{{file.name}}</h1>
-<small>Uploaded at {{file.date}}</small>
-<br>
-<small>file path  {{file.file_field}}</small>
-<br>
-<small>{{file.file_field.read.decode}}</small>  <!-- chatgpt -->
-<hr />
-
-
+<section class="section">
+    <div class="container has-text-centered mt-5">
+        <div class="card p-4">
+            <h1 class="title">{{ file.name }}</h1>
+            <small>Uploaded at {{ file.date }}</small>
+            <br>
+            <small>File Path: {{ file.file_field }}</small>
+            <br>
+            <small>{{ file.file_field.read.decode }}</small> <!-- chatgpt -->
+            <hr />
+        </div>
+    </div>
+</section>
 {% endblock %}

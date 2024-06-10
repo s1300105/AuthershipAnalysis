@@ -1,14 +1,18 @@
 {% extends "app_analysis/base.html" %}
+
 {% block content %}
-
-
-<form method="POST" action="">
-    {% csrf_token %}
-    <p>Are you sure you want to delete "{{file.name}}"?</p>
-
-    <a href="{{request.META.HTTP_REFERER}}">Go Back</a>
-    <input type="submit" value="Confirm" />
-
-</form>
-
+<section class="section">
+    <div class="container has-text-centered mt-5">
+        <form method="POST" action="">
+            {% csrf_token %}
+            <div class="card p-4">
+                <p>Are you sure you want to delete "{{ file.name }}"?</p>
+                <div class="buttons is-centered mt-4">
+                    <a href="{{ request.META.HTTP_REFERER }}" class="button is-primary">Go Back</a>
+                    <input type="submit" value="Confirm" class="button is-danger ml-2" />
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
 {% endblock %}

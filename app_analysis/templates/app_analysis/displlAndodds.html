@@ -3,9 +3,18 @@
 
 
 
+<div style="margin-top: 20px;">
+    <form action="{% url 'plot' %}" method="get">
+        <input type="submit" value="Plot Top 20 Target Counts">
+    </form>
+</div>
 
-<div style="display: flex;">
-    <div>
+
+
+
+
+<div style="display: flex; overflow-x: auto;">
+    <div style="background-color: #fff; padding: 20px; margin-right: 20px; border-radius: 5px;">
         <h1><strong>Likelihood and Odds</strong></h1>
         <h2>This is sorted depending on the value of Loglikelihood</h2>
         <div class="pagination">
@@ -70,7 +79,7 @@
         </div>
     </div>
 
-    <div>
+    <div style="background-color: #fff; padding: 20px; border-radius: 5px;">
         <h2>This table doesn't contain the row that has the odds ratio "inf", and is sorted depending on the value of Odds ratio</h2>
         <div class="pagination">
             <span class="step-links">
@@ -134,8 +143,6 @@
         </div>
     </div>
 </div>
-
-
 {% endblock %}
 
 
