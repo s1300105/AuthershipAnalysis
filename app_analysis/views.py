@@ -8,6 +8,49 @@ from django.views.generic import ListView
 from django.shortcuts import get_object_or_404
 import math
 
+
+from django.http import HttpResponse
+
+import matplotlib.pyplot as plt
+from io import BytesIO
+import base64
+
+
+
+def plot(request):
+     # displlAndodds.htmlからデータ取得
+        words = request.POST.getlist('word')
+        target_counts = request.POST.getlist('target_count')
+
+        words = [word.strip() for word in words]
+        target_counts = [int(count) for count in target_counts]
+
+        # グラフ生成
+        plt.plot(words, target_counts, marker='o')  # x-yグラフ生成
+        plt.xlabel('Word')
+        plt.ylabel('Target Count')
+        plt.title('Top Words by Target Count')
+
+        # グラフを画像として保存
+        buffer = BytesIO()
+        plt.savefig(buffer, format='png')
+        buffer.seek(0)
+        image_png = buffer.getvalue()
+        buffer.close()
+
+        # 画像をbase64エンコードしてHTMLに埋め込む
+        graphic = base64.b64encode(image_png).decode('utf-8')
+        plt.close()
+
+        return render(request, 'app_analysis/plot.html', {'graphic': graphic})
+
+
+
+
+
+
+
+
 def home(request):
     files = FileModel.objects.all()
     return render(request, "app_analysis/home.html", {"files":files})

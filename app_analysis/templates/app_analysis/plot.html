@@ -1,0 +1,8 @@
+{% extends "app_analysis/base.html" %}
+{% block content %}
+<div class="d-flex justify-content-center">
+    {% if graphic %}
+        <img src="data:image/png;base64,{{ graphic }}" alt="Word-Target Count Graph" class="img-fluid" style="border: 2px solid #ccc; padding: 10px; background-color: #fff; border-radius: 5px;">
+    {% endif %}
+</div>
+{% endblock %}

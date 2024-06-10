@@ -17,6 +17,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+from app_analysis.views import plot
+
 from app_analysis.views import home, upload, file_detail, deletefile,\
      updatefile, keyword,qvsk,qvsk_analysis, displlAndodds
 
@@ -32,4 +34,5 @@ urlpatterns = [
     path("qvsk",qvsk,name="qvsk"),
     path('qvsk_analysis', qvsk_analysis, name='qvsk_analysis'),
     path('displlAndodds', displlAndodds, name="displlAndodds"),
+    path('plot', plot, name='plot'),
 ]
