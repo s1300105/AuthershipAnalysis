@@ -2,7 +2,7 @@ import os
 
 from django.shortcuts import render, redirect
 from .models import FileModel,FreqWord
-from .forms import UploadFileForm, SelectedFileForm,SelectedQForm
+from .forms import UploadFileForm, SelectedFileForm,SelectedQForm,SelectedKForm
 from django.core.paginator import Paginator
 from django.views.generic import ListView
 
@@ -169,3 +169,53 @@ def qvsk_analysis(request):
         
     }
     return  render(request, "app_analysis/qvsk_analysis.html", context)
+
+
+
+def kvsk(request):
+    form = SelectedKForm()
+
+    if request.method == 'POST':
+        form = SelectedKForm(request.POST)
+        
+        if form.is_valid():
+            request.session['form_data'] = form.cleaned_data['files']
+            return redirect("kvsk_analysis")
+            
+    return render(request, "app_analysis/kvsk.html", {"form" : form})
+
+def kvsk_analysis(request):
+    form = request.session.get('form_data')
+    if not form:
+            return redirect('kvsk')
+    
+    word_group = {}
+    max_word = 0
+    selected_files = form
+
+    for file in selected_files:
+        freq_words = list(FreqWord.objects.filter(relate_file__id=file.id).order_by('-count'))
+        word_group[file.name] = freq_words
+        max_word = max(max_word,len(freq_words))
+    
+    group_index = []
+    for i in range(max_word):
+        row = []
+        for file_name in word_group:
+            if i < len(word_group[file_name]):
+                row.append(word_group[file_name][i])
+            else:
+                row.append(None)
+        group_index.append(row)
+
+    paginator = Paginator(group_index, 20)  
+    page_number = request.GET.get('page', 1)
+    results = paginator.get_page(page_number)
+    filename = [file.name for file in selected_files]
+    print(filename)
+    context = {
+        "results" : results,
+        "filename" : filename,
+        
+    }
+    return  render(request, "app_analysis/kvsk_analysis.html", context)

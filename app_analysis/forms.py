@@ -26,3 +26,12 @@ class SelectedQForm(ModelForm):
             "files" : CheckboxSelectMultiple,
         }
 
+
+class SelectedKForm(ModelForm):
+    class Meta:
+        model = SelectedFile
+        fields = ['files']
+        widgets = {
+            "files" : CheckboxSelectMultiple,
+        }
+
